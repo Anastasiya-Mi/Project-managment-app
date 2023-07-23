@@ -7,13 +7,19 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NotFoundComponent,
-    StartPageComponent
+    StartPageComponent,
+    HeaderComponent,
+    FooterComponent,
+
   ],
   imports: [
     BrowserModule,
