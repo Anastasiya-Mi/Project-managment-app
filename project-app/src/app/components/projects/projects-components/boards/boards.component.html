@@ -1,10 +1,13 @@
-<app-header></app-header>
+<app-header-board></app-header-board>
 <div class="wrap">
-    <div class="board" *ngFor= 'let user of personalList | async'>
-        <h3>{{user.name}}</h3>
-        <p>{{user.email}}</p>
-        <button [routerLink]="['user',user.id]">Details</button>
+    
+    <button class="board" (click) = "newBoard()">Add Board</button>
+    <div class="board" *ngFor= 'let board of todo' (click)="redirectTo()">
+        <h3>{{board.title}}</h3>
+        <p>{{board.description}}</p>
+        <button (click)="edit($event)"> Edit </button>
+        <button (click)="remove($event)"> Remove</button>
     </div>
-    <!-- <button>Details</button> -->
+    
 </div>
-<!-- <app-footer></app-footer> -->
+<app-footer-board></app-footer-board>

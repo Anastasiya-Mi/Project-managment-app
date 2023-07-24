@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,map } from 'rxjs';
 // import { Subscribe } from 'rxjs';
 import { User } from '../../User';
 import { ActivatedRoute,Params  } from '@angular/router';
@@ -17,8 +17,9 @@ user!:Observable<User>
 constructor(private activateRoute:ActivatedRoute, private projectService:ProjectService){}
 
 ngOnInit():void{
-  this.activateRoute.params.subscribe((params:Params)=>this.id = params?.['id']);
-  this.user = this.projectService.getPerson(this.id)
+  // this.activateRoute.params.subscribe((params:Params)=>this.id = params?.['id']);
+  // this.user = this.projectService.getPerson(this.id)
+  this.user = this.activateRoute.data.pipe(map((data) => data?.['user'] ))
   // console.log(this.id)
 }
 }

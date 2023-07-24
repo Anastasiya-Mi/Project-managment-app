@@ -7,11 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService,
-    private router:Router){
-  
+  constructor(private authService:AuthService){
+
   }
-  redirectTo(){
-  this.router.navigate(['login'])  
-}
+  
+  logout(){
+    this.authService.logout()
+  }
+//  checkStatus(){
+//   console.log(!this.authService.isLoggedIn())
+//   return !this.authService.isLoggedIn();
+//  }
+
 }

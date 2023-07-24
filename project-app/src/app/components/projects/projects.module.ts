@@ -1,23 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import {  MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { FormsModule } from '@angular/forms';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { BoardsComponent } from './projects-components/boards/boards.component';
 import { BoardsTaskComponent } from './projects-components/boards-task/boards-task.component';
-import { HeaderComponent } from './projects-components/header/header.component';
-import { FooterComponent } from './projects-components/footer/footer.component';
+import { HeaderComponentBoard } from './projects-components/header/header.component';
+import { FooterComponentBoard } from './projects-components/footer/footer.component';
+import { DialogComponent } from './projects-components/dialog/dialog.component';
+import { ConfirmWindowComponent } from './projects-components/confirm-window/confirm-window.component';
+// import { HeaderComponent } from 'src/app/components/header/header.component';
 
 
 @NgModule({
   declarations: [
     BoardsComponent,
     BoardsTaskComponent,
-    HeaderComponent,
-    FooterComponent
+    HeaderComponentBoard,
+    FooterComponentBoard,
+    DialogComponent,
+    ConfirmWindowComponent,
+    // HeaderComponentFirst
   ],
   imports: [
     CommonModule,
-    ProjectsRoutingModule
+    ProjectsRoutingModule,
+    MatButtonModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class ProjectsModule { }
