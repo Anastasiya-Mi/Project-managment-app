@@ -19,12 +19,13 @@ constructor(private authService: AuthService,
       'email': new FormControl('',[Validators.required,Validators.email]),
       'password': new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
     });
-    if(this.authService.isLoggedIn()){
+    if(!this.authService.isLoggedIn()){
+      console.log(this.authService.isLoggedIn())
       this.router.navigate(['projects'])
     }
   }
 
-  submitLogin(){
+submitLogin(){
 this.authService.login(this.loginForm.value).subscribe({
 next:()=> this.router.navigate(['projects']),
 error:(error) => alert(error.message)

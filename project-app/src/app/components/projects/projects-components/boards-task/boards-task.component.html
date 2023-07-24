@@ -1,5 +1,10 @@
 <app-header></app-header>
+<!-- <h5>{{user.name}}</h5> -->
+<div class="task" *ngIf="user | async as user">
+    <h5>{{user.name}}</h5>
+    <p>{{user.email}} + 111</p>
 
-
+</div>
 <p>boards-task works!</p>
-<app-footer></app-footer>
+<button routerLink="/projects">go Back</button>
+<!-- <app-footer></app-footer> -->

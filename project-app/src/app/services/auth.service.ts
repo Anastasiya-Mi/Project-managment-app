@@ -19,6 +19,8 @@ export class AuthService {
 
   isLoggedIn(){
     return this.getToken() !== null;
+    
+
   }
 
   login(userInfo:{email:string,password:string}): Observable<string | boolean>{

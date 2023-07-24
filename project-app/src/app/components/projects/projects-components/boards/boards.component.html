@@ -1,2 +1,10 @@
 <app-header></app-header>
-<app-footer></app-footer>
+<div class="wrap">
+    <div class="board" *ngFor= 'let user of personalList | async'>
+        <h3>{{user.name}}</h3>
+        <p>{{user.email}}</p>
+        <button [routerLink]="['user',user.id]">Details</button>
+    </div>
+    <!-- <button>Details</button> -->
+</div>
+<!-- <app-footer></app-footer> -->
