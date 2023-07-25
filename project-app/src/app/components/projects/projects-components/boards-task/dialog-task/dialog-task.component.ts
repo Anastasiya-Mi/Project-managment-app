@@ -17,8 +17,8 @@ export class DialogTaskComponent {
 
   cancel(): void {
     // this.data.task.title = this.backupTask.title;
-    this.data.task.description = this.backupTask.description;
-    this.data.task.condition = false;    
+    this.data.task = this.backupTask;
+    this.data.task.condition = false;
     this.dialogRef.close(this.data);
 
   }
