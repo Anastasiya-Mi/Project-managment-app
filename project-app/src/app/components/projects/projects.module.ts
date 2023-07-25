@@ -12,6 +12,9 @@ import { HeaderComponentBoard } from './projects-components/header/header.compon
 import { FooterComponentBoard } from './projects-components/footer/footer.component';
 import { DialogComponent } from './projects-components/dialog/dialog.component';
 import { ConfirmWindowComponent } from './projects-components/confirm-window/confirm-window.component';
+import { DialogColumnComponent } from './projects-components/boards-task/dialog-column/dialog-column.component';
+import { DialogTaskComponent } from './projects-components/boards-task/dialog-task/dialog-task.component';
+import { ColumnTaskListComponent } from './projects-components/boards-task/column-task-list/column-task-list.component';
 // import { HeaderComponent } from 'src/app/components/header/header.component';
 
 
@@ -23,6 +26,9 @@ import { ConfirmWindowComponent } from './projects-components/confirm-window/con
     FooterComponentBoard,
     DialogComponent,
     ConfirmWindowComponent,
+    DialogColumnComponent,
+    DialogTaskComponent,
+    ColumnTaskListComponent,
     // HeaderComponentFirst
   ],
   imports: [

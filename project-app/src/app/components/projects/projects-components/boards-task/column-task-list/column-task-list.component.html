@@ -1,0 +1,5 @@
+<div class="task" *ngFor= 'let task of tasks'>
+    <p>{{task.description}} </p>
+    <button ngFor='{ tasks: data.task}' (click)="editTask($event,task)"> Edit </button>
+    <button ngFor='{ tasks: data.task}' (click)="removeTask($event,task)"> Remove</button>
+</div>

@@ -10,7 +10,7 @@ export interface Boards {
     id?: string;
     title?: string;
     description?: string;
-    condution?: boolean;
+    condition?: boolean;
     tasks?:Task[];
   }
 
@@ -18,5 +18,5 @@ export interface Boards {
     id?: string;
     title?: string;
     description?: string;
-    condution?: boolean;    
+    condition?: boolean;    
   }

@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import { FormGroup,FormControl,Validators } from '@angular/forms';
+import { FormGroup,FormControl,Validators,ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import {Route, Router} from '@angular/router';
 @Component({
@@ -26,9 +26,16 @@ constructor(private authService: AuthService,
   }
 
 submitLogin(){
+  // const email =this.loginForm.value.email;
+  // const password =this.loginForm.value.password;
+  // console.log(email,password)
 this.authService.login(this.loginForm.value).subscribe({
 next:()=> this.router.navigate(['projects']),
 error:(error) => alert(error.message)
 })
+// this.authService.login(email,password).subscribe({
+//   next:()=> this.router.navigate(['projects']),
+//   error:(error) => alert(error.message)
+//   })
   }
 }

@@ -7,12 +7,13 @@ import { UserResolver } from './resolvers/user.resolver';
 const routes: Routes = [
 //   {path:'',component:BoardsComponent,
 // children:[
-//   {path:'user/:id',component:BoardsTaskComponent}
+//   {path:'title',component:BoardsTaskComponent}
 // ]}
 {path:'',component:BoardsComponent},
-{path:'user/:id',component:BoardsTaskComponent,resolve:{
-  user: UserResolver
-}}
+{path:'title',component:BoardsTaskComponent}
+// resolve:{
+//   user: UserResolver
+// }}
 
 ];
 

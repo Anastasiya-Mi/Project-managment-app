@@ -1,6 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject,Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Boards} from '../../Boards';
+import { Boards,BoardList,Task} from '../../Boards';
 
 
 @Component({
@@ -9,6 +9,7 @@ import { Boards} from '../../Boards';
   styleUrls: ['./dialog.component.css']
 })
 export class DialogComponent {
+ 
   private backupTask: Partial<Boards> = { ...this.data.board };
 
   constructor(
@@ -37,5 +38,6 @@ export interface DialogData {
 
 export interface DialogResult {
   board: Boards;
+  // column: BoardList;
   delete?: boolean;
 }

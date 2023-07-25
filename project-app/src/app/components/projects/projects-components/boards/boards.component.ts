@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../User';
 import { Boards,BoardList,Task} from '../../Boards';
@@ -7,7 +7,7 @@ import {Route, Router} from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogResult } from '../dialog/dialog.component';
-import { ConfirmWindowComponent } from '../confirm-window/confirm-window.component';
+import { ConfirmWindowComponent,DialogResultWindow } from '../confirm-window/confirm-window.component';
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
@@ -15,19 +15,32 @@ import { ConfirmWindowComponent } from '../confirm-window/confirm-window.compone
 })
 export class BoardsComponent {
   personalList!:Observable<User[]>;
-  // boards!:Observable<Boards[]>;
+  
+  board: Boards | null = null;
   todo: Boards[] = [
     {
       title: 'Buy milk',
-      description: 'Go to the store and buy milk'
+      description: 'Go to the store and buy milk',
+      condition: true,
     },
     {
       title: 'Create a Kanban app',
-      description: 'Using Firebase and Angular create a Kanban app!'
+      description: 'Using Firebase and Angular create a Kanban app!',
+      condition: true
     }
   ];
   constructor(private projectService:ProjectService, private router:Router,private dialog: MatDialog ){}
+  redirectTo(board:Boards){
+    console.log(board)
+    this.projectService.setData(board);
+    this.router.navigate(['projects/title'])
+  }
+  
+  
+  
+  
   newBoard() :void{
+    
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '400px',
       width: '600px',
@@ -51,31 +64,34 @@ export class BoardsComponent {
           return;
         }
 
-        this.todo.push(result.board);        
+        this.todo.push(result.board);   
+        // console.log(this.todo)     
       });
   }
-  redirectTo(){
-    console.log('ggg')
-    this.router.navigate(['user/:id'])
-  }
-  edit(event:any): void{
-    console.log('edit')
+  
+
+  edit(event:any,board:Boards): void{
+    // console.log('edit', event.target)
     event.stopPropagation();
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '400px',
       width: '600px',
       data: {
-        board:{}
+        board:{
+          condition:true
+        }
+        
       },
     });
-    console.log(this.todo);
+    // console.log(this.todo);
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResult | undefined) => {
         const resultId = result?.board?.id;
         let value = result?.board.condition;
-        const checkTitle = result?.board.title;
-        const checkDescription = result?.board.description;
+        let checkTitle = result?.board.title;
+        let checkDescription = result?.board.description;
+        console.log(result)
         if (!checkTitle && !checkDescription) {
           value = false;
           // this.store.collection('list').doc(resultId).delete();
@@ -84,30 +100,68 @@ export class BoardsComponent {
           return;
         }
         value = true;
+        const dataList = this.todo;
+        console.log(dataList)
+        const taskIndex = dataList.indexOf(board);
+        console.log(taskIndex,'taskIndex')
+        if (result.delete) {
+          dataList.splice(taskIndex, 1);
+        } else {
+          console.log(board,'board')
+          console.log(result.board,'result')
+          dataList[taskIndex] = result.board;
+        }
       });
   }
 
-  remove(event:any){
+  remove(event:any,board:Boards){
     event.stopPropagation();
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
       height: '100px',
       width: '200px',
       data: {
-        board:{}
+        // board:{
+        //   condition:true
+        // }
       },
     });
 
     dialogRef
       .afterClosed()
-      .subscribe((result: ConfirmWindowComponent | undefined) => {
-        const valueCondition = result?.board?.condition;
-        const resultId = result?.board?.id;
-        console.log(result?.board?.id, 'task');
-        if (valueCondition) {
-          return;
+      .subscribe((result: DialogResultWindow | undefined) => {
+        const valueCondition = result?.condition;
+        // const resultId = result?.board?.id;
+        // console.log(result?.board?.id, 'task');
+        console.log(result)
+        if (!valueCondition) {
+          console.log(valueCondition)
+          const dataList = this.todo;
+          const taskIndex = dataList.indexOf(board);
+          dataList.splice(taskIndex, 1);
+        } else{
+          console.log(valueCondition)
+        //   const dataList = this.todo;
+        // console.log(result)
+        // const taskIndex = dataList.indexOf(board);
+        // dataList.splice(taskIndex, 1);
+        // console.log(taskIndex,'taskIndex')
         }
 
-        // this.store.collection('list').doc(resultId).delete();
+        // const dataList = this.todo;
+        // console.log(result)
+        // const taskIndex = dataList.indexOf(board);
+        // dataList.splice(taskIndex, 1);
+        // console.log(taskIndex,'taskIndex')
+        // console.log(valueCondition,'result')
+
+        // if (result) {
+        //   dataList.splice(taskIndex, 1);
+        // } else {
+          // console.log(board,'board')
+          // console.log(result.board,'result')
+          // dataList[taskIndex] = board;
+        // }
+        console.log(this.todo)
       });
   }
 

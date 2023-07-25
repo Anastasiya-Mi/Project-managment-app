@@ -1,10 +1,25 @@
 <app-header-board></app-header-board>
 <!-- <h5>{{user.name}}</h5> -->
-<div class="task" *ngIf="user | async as user">
-    <h5>{{user.name}}</h5>
-    <p>{{user.email}} + 111</p>
-
+<!-- <div class="task" *ngIf="user | async as user"> -->
+<div class="wrap">
+<button class="column" (click) = "newColumn()">Add Column</button>
+<div class="task">
+    <h5>{{data.title}}</h5>
+    <p>{{data.description}} + 111</p>
 </div>
-<p>boards-task works!</p>
+<div class="columns" *ngFor= 'let column of columns'>
+    <h3>{{column.title}}</h3>        
+    <button ngFor='{ column: data.column}' (click)="edit($event,column)"> Edit </button>
+    <button ngFor='{ column: data.column}' (click)="remove($event,column)"> Remove</button>
+    <button ngFor='{ column: data.column}' (click)="addTask($event,column)"> Add Task</button>
+    <!-- <div class="task" *ngFor= 'let task of tasks'>
+        <p>{{task.description}} </p>
+        <button ngFor='{ tasks: data.task}' (click)="editTask($event,task)"> Edit </button>
+        <button ngFor='{ tasks: data.task}' (click)="removeTask($event,task)"> Remove</button>
+    </div> -->
+</div>
+
+<!-- <button class="column" (click) = "newColumn()">Add Column</button> -->
 <button routerLink="/projects">go Back</button>
+</div>
 <app-footer-board></app-footer-board>

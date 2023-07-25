@@ -22,7 +22,7 @@ export class UserResolver implements Resolve<User> {
   constructor(private projectService: ProjectService, private router: Router ) {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-    return this.projectService.getPerson(route.params?.['id']).pipe(
+    return this.projectService.getPerson(route.params?.['title']).pipe(
       // delay(),
       catchError( () => {
         this.router.navigate(['projects'])

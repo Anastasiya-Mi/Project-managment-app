@@ -6,7 +6,7 @@ import { User } from '../../User';
   providedIn: 'root'
 })
 export class ProjectService {
-
+  
   constructor(private http: HttpClient) { }
 // запрашиваем массив коллекций/элементов
   getPersonalList(){
@@ -15,5 +15,14 @@ export class ProjectService {
 // возвращаем 1 элемент
   getPerson(id: string) {
     return this.http.get<User>(`https://jsonplaceholder.typicode.com/users/${id}`);
+  }
+
+  setData(data:any){
+    const value = JSON.stringify(data)
+    localStorage.setItem('data',value)
+  }
+
+  getData(){
+    return JSON.parse(localStorage.getItem('data') || '{}');
   }
 }
