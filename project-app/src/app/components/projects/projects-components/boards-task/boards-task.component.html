@@ -11,14 +11,21 @@
     <h3>{{column.title}}</h3>        
     <button ngFor='{ column: data.column}' (click)="edit($event,column)"> Edit </button>
     <button ngFor='{ column: data.column}' (click)="remove($event,column)"> Remove</button>
-    <button ngFor='{ column: data.column}' (click)="addTask(column)"> Add Task</button>
-    <app-column-task-list *ngFor="let task of tasks" [task]="tasks"></app-column-task-list>
+    <button ngFor='{ column: data.column.tasks}' (click)="addTask(column)"> Add Task</button>
+    <!-- <app-column-task-list *ngFor="let task of column.tasks" [task]="column.tasks"> -->
+        <div class="task" *ngFor="let task of column.tasks">
+            <p>{{task}} </p>
+            <button ngFor='{ task: data.task}' (click)="editTask($event,task)"> Edit </button>
+            <button ngFor='{ tasks: data.task}' (click)="removeTask($event,task)">Remove</button>
+                
+        </div> 
+    <!-- </app-column-task-list> -->
    
     <!-- <button ngFor='{ column: data.column}' (click)="addTask(column)"> Add Task</button>  -->
-    <!-- <div class="task" *ngFor= 'let task of tasks'>
+    <!-- <div class="task">
         <p>{{task.description}} </p>
-        <button ngFor='{ tasks: data.task}' (click)="editTask($event,task)"> Edit </button>
-        <button ngFor='{ tasks: data.task}' (click)="removeTask($event,task)"> Remove</button>
+        <button ngFor='{ tasks: data.task}' > Edit </button>
+        <button ngFor='{ tasks: data.task}' > Remove</button>
     </div> -->
 </div>
 

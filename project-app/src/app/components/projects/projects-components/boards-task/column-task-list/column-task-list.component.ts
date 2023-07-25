@@ -45,36 +45,36 @@ export class ColumnTaskListComponent {
       // });
   // }
   
-  editTask(task:Task){
+  // editTask(task:Task){
   
-    const dialogRef = this.dialog.open(DialogTaskComponent, {
-      height: '400px',
-      width: '600px',
-      data: {
-        column:{
-          condition:true
-        }
+  //   const dialogRef = this.dialog.open(DialogTaskComponent, {
+  //     height: '400px',
+  //     width: '600px',
+  //     data: {
+  //       column:{
+  //         condition:true
+  //       }
         
-      },
-    });
+  //     },
+  //   });
     // console.log(this.todo);
-    dialogRef
-      .afterClosed()
-      .subscribe((result: DialogTaskResult | undefined) => {
-        const resultId = result?.task?.id;
-        let value = result?.task.condition;
-        let checkTitle = result?.task.title;
-        console.log(checkTitle)
+    // dialogRef
+      // .afterClosed()
+      // .subscribe((result: DialogTaskResult | undefined) => {
+      //   const resultId = result?.task?.id;
+      //   let value = result?.task.condition;
+      //   let checkTitle = result?.task.title;
+      //   console.log(checkTitle)
         // let checkDescription = result?.column.description;
-        console.log(result)
-        if (!checkTitle) {
-          value = false;
+        // console.log(result)
+        // if (!checkTitle) {
+        //   value = false;
           // this.store.collection('list').doc(resultId).delete();
-      }
-        if (!result) {
-          return;
-        }
-        value = true;
+      // }
+      //   if (!result) {
+      //     return;
+      //   }
+      //   value = true;
         // const dataList = this.task;
         // console.log(dataList)
         // const taskIndex = dataList?.indexOf(task);
@@ -86,9 +86,9 @@ export class ColumnTaskListComponent {
         //   console.log(result.task,'result')
         //   dataList[taskIndex] = result.task;
         // }
-      });
+      // });
   
-  }
+  // }
   removeTask(task:Task){
     
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
