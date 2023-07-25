@@ -24,8 +24,10 @@ user!:Observable<User>;
 data!:any;
 column: BoardList[] | null = null;
 tasks:Task[] | null = null;
+currentItem ='value';
 // title!:string
 // description!:string
+
 columns: BoardList[] = [
 {
 title:'first',
@@ -152,34 +154,37 @@ remove(event:any,column: BoardList){
       // console.log(this.columns)
     });
 }
-// addTask(event:any,tasks: Task){
-//   const dialogRef = this.dialog.open(DialogTaskComponent, {
-//     height: '400px',
-//     width: '600px',
-//     data: {
-//       task: {
-//         condition: true,
-//       },
-//     },
-//   });
-//   dialogRef
-//     .afterClosed()
-//     .subscribe((result: DialogTaskResult | undefined) => {
-//       let value = result?.task.condition;
-//       // const valueId = JSON.stringify(result?.task.id);
-//       // const checkTitle = result?.task.title;
-//       const checkDescription = result?.task.description;
-//       if (!checkDescription) {
-//         value = false;
-//       }
-//       if (!result || !value) {
-//         return;
-//       }
+addTask(column: BoardList){
+  console.log(column)
+  const dialogRef = this.dialog.open(DialogTaskComponent, {
+    height: '400px',
+    width: '600px',
+    data: {
+      tasks: {
+        condition: true,
+      },
+    },
+  });
+  dialogRef
+    .afterClosed()
+    .subscribe((result: DialogTaskResult | undefined) => {
+      console.log(result)
+      let value = result?.task.condition;
+      // const valueId = JSON.stringify(result?.task.id);
+      // const checkTitle = result?.task.title;
+      const checkDescription = result?.task.description;
+      if (!checkDescription) {
+        value = false;
+      }
+      if (!result || !value) {
+        return;
+      }
+      console.log(result.task)
+      this.columns.push(result.task);   
+      console.log(this.column)     
+    });
+}
 
-//       this.tasks?.push(result.task);   
-//       console.log(this.tasks)     
-//     });
-// }
 
 // editTask(event:any,column: BoardList){
 //   // console.log('edit', event.target)
