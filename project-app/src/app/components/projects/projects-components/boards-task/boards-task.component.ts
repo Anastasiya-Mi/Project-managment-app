@@ -13,41 +13,37 @@ import { DialogColumnResult } from '../boards-task/dialog-column/dialog-column.c
 import { DialogTaskComponent } from '../boards-task/dialog-task/dialog-task.component';
 import { DialogTaskResult } from '../boards-task/dialog-task/dialog-task.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+// import { Observable } from 'rxjs';
 @Component({
   selector: 'app-boards-task',
   templateUrl: './boards-task.component.html',
   styleUrls: ['./boards-task.component.css'],
 })
 export class BoardsTaskComponent {
-  // count!: number;
-  // id!: string;
-  // user!: Observable<User>;
   data!: any;
-  // columns!: BoardList[] | null = [];
-  columns!:any
-  // columns!:Observable<BoardList[]>;
 
-  // columns: BoardList[] = [
-  //   {
-  //     title: 'first',
-  //     condition: true,
-  //   },
-  //   {
-  //     title: 'second',
-  //     condition: true,
-  //   },
-  // ];
- 
+  // columns!:any
+  tasks!:any
+
+
   constructor(
     private activateRoute: ActivatedRoute,
     private projectService: ProjectService,
     private dialog: MatDialog,
     private store: AngularFirestore
-  ) {}
+  ) {
+    // this.data = this.projectService.getData();
+    // this.columns = this.data.columns || []
+  // this.tasks = this.data.columns.tasks || []
+  }
+  columns = this.store.collection('boards').valueChanges({idField: 'columns'}) as Observable<BoardList[]>;
+  // data:this.projectService.getData();
 
+  // columnsData = this.store.collection('boards').doc(this.data).valueChanges({columns: 'columns'}) as Observable<BoardList[]>;
+  // column = this.columnsData.columns
   ngOnInit(): void {
     this.data = this.projectService.getData();
-    this.columns = this.data.columns
+    // this.columns = this.data.columns || []
   }
   newColumn() {
     const dialogRef = this.dialog.open(DialogColumnComponent, {
@@ -73,10 +69,12 @@ export class BoardsTaskComponent {
         if (!result || !value) {
           return;
         }
-        this.columns?.push(result?.column)
-        this.data.columns = this.columns;        
+        const dataList = this.columns;
+        // dataList.push(result?.column)
+        this.data.columns = dataList;
         console.log(this.data)
-        this.store.collection('boards').doc(this.data.id).set(this.data); 
+        this.store.collection('boards').doc(this.data.id).set(this.data);
+
       });
   }
   edit(event: any, column: BoardList) {
@@ -93,25 +91,19 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogColumnResult | undefined) => {
-        console.log(result)
-        let checkTitle = result?.column.title;
-        console.log(checkTitle,result)
+        console.log(result,column)
+        const dataId= this.data.id
+        const checkTitle = result?.column.title;
+        const currentTitle = column.title;
         if (!checkTitle || !result) {
           return;
         }
-        column.title = checkTitle;
-        console.log(column.title)
-        // const dataList = this.columns;
-
+        const dataList = this.columns;
         // const taskIndex = dataList.indexOf(column);
+        // dataList.splice(taskIndex, 1,result?.column);
+        this.data.columns = dataList;
+        this.store.collection('boards').doc(dataId).set(this.data);
 
-        // if (result.delete) {
-        //   dataList.splice(taskIndex, 1);
-        // } else {
-        //   let newTitle = dataList[taskIndex];
-
-        //   newTitle.title = checkTitle;
-        // }
       });
   }
   remove(event: any, column: BoardList) {
@@ -121,24 +113,27 @@ export class BoardsTaskComponent {
       width: '200px',
       data: {},
     });
-
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
-      //   const valueCondition = result?.condition;
-      //   console.log(result);
-      //   if (!valueCondition) {
-      //     // console.log(valueCondition)
-      //     const dataList = this.columns;
-      //     const taskIndex = dataList.indexOf(column);
-      //     dataList.splice(taskIndex, 1);
-      //   } else {
-      //     // console.log(valueCondition)
-      //   }
-      //   // console.log(this.columns)
+        const valueCondition = result?.condition;
+        const dataId= this.data.id
+        console.log(result);
+        if (!valueCondition) {
+          // console.log(valueCondition)
+          const dataList = this.columns;
+          // const taskIndex = dataList.indexOf(column);
+          // dataList.splice(taskIndex, 1);
+          // console.log(dataList)
+          this.data.columns = dataList;
+          // console.log(this.data.columns)
+          this.store.collection('boards').doc(dataId).set(this.data);
+          console.log(this.data.columns)
+        }
       });
   }
   addTask(column: BoardList) {
+console.log(column)
 
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       height: '400px',
@@ -148,16 +143,33 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogTaskResult | undefined) => {
+
         const task = result?.task;
+        console.log(task)
+        const dataId= this.data.id
         if (!task) {
           return;
         }
+        // column?.tasks.push(task);
         if (!column.tasks && typeof task === 'string') {
           column.tasks = [];
           column.tasks.push(task);
         } else {
           column?.tasks?.push(task);
         }
+        // column.tasks?.push(task);
+        // column.tasks =this.tasks
+        console.log(column,dataId)
+
+        const dataList = this.columns;
+        // const taskIndex = dataList.indexOf(column);
+        // const value =dataList[taskIndex];
+        // console.log(value)
+        // dataList.splice(taskIndex, 1,value);
+        console.log(dataList)
+        this.data.columns = dataList;
+        console.log(this.data)
+        this.store.collection('boards').doc(dataId).set(this.data);
       });
   }
 
@@ -178,6 +190,7 @@ export class BoardsTaskComponent {
       .afterClosed()
       .subscribe((result: DialogTaskResult | undefined) => {
         const checkResult = result?.task;
+        const dataId= this.data.id
         if (!result) {
           return;
         }
@@ -188,6 +201,9 @@ export class BoardsTaskComponent {
             const taskIndex = dataList.findIndex((item) => item === task);
             dataList.splice(taskIndex, 1, checkResult);
           }
+          console.log(dataList)
+          console.log(this.data)
+          this.store.collection('boards').doc(dataId).set(this.data);
         }
       });
   }
@@ -203,8 +219,9 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
-
+        const dataId= this.data.id
         const valueCondition = result?.condition;
+
 
         if (!valueCondition) {
 
@@ -214,6 +231,9 @@ export class BoardsTaskComponent {
           const taskIndex = dataList.findIndex((item) => item === task);
           dataList.splice(taskIndex, 1);
         }
+        console.log(dataList)
+          console.log(this.data)
+          this.store.collection('boards').doc(dataId).set(this.data);
       }
 
       });

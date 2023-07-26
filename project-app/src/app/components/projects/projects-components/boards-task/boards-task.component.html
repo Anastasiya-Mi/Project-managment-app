@@ -7,7 +7,7 @@
     <h5>{{data.title}}</h5>
     <p>{{data.description}} + 111</p>
 </div>
-<div class="columns" *ngFor= 'let column of columns'>
+<div class="columns" *ngFor= 'let column of (columns | async)'>
     <h3 ngFor='{ column: data.column}' (click)="edit($event,column)">{{column.title}}</h3>
     <!-- <button ngFor='{ column: data.column}' (click)="edit($event,column)"> Edit </button> -->
     <button ngFor='{ column: data.column}' (click)="remove($event,column)"> Remove</button>
