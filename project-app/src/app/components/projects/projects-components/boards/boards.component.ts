@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogResult } from '../dialog/dialog.component';
 import { ConfirmWindowComponent,DialogResultWindow } from '../confirm-window/confirm-window.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
@@ -15,29 +16,19 @@ import { ConfirmWindowComponent,DialogResultWindow } from '../confirm-window/con
 })
 export class BoardsComponent {
   personalList!:Observable<User[]>;
-  
-  board: Boards | null = null;
-  todo: Boards[] = [
-    {
-      title: 'Buy milk',
-      description: 'Go to the store and buy milk',
-      condition: true,
-    },
-    {
-      title: 'Create a Kanban app',
-      description: 'Using Firebase and Angular create a Kanban app!',
-      condition: true
-    }
-  ];
-  constructor(private projectService:ProjectService, private router:Router,private dialog: MatDialog ){}
+
+  constructor(private projectService:ProjectService, 
+    private router:Router,
+    private dialog: MatDialog ,
+    private store: AngularFirestore){}
+
   redirectTo(board:Boards){
     console.log(board)
     this.projectService.setData(board);
     this.router.navigate(['projects/title'])
   }
-  
-  
-  
+
+  boards = this.store.collection('boards').valueChanges({idField: 'id'}) as Observable<Boards[]>;
   
   newBoard() :void{
     
@@ -53,8 +44,7 @@ export class BoardsComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResult | undefined) => {
-        let value = result?.board.condition;
-        // const valueId = JSON.stringify(result?.task.id);
+        let value = result?.board.condition;       
         const checkTitle = result?.board.title;
         const checkDescription = result?.board.description;
         if (!checkTitle && !checkDescription) {
@@ -63,54 +53,41 @@ export class BoardsComponent {
         if (!result || !value) {
           return;
         }
-
-        this.todo.push(result.board);   
-        // console.log(this.todo)     
+        this.store.collection('boards').add(result.board);          
       });
   }
   
 
   edit(event:any,board:Boards): void{
-    // console.log('edit', event.target)
+    console.log('edit',board )
     event.stopPropagation();
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '400px',
       width: '600px',
       data: {
-        board:{
-          condition:true
-        }
-        
+        board:{          
+        }        
       },
-    });
-    // console.log(this.todo);
+    });   
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResult | undefined) => {
-        const resultId = result?.board?.id;
-        let value = result?.board.condition;
+        const resultId = board.id;       
         let checkTitle = result?.board.title;
-        let checkDescription = result?.board.description;
-        console.log(result)
-        if (!checkTitle && !checkDescription) {
-          value = false;
-          // this.store.collection('list').doc(resultId).delete();
+        let checkDescription = result?.board.description;   
+      
+        if (!checkTitle && !checkDescription) {          
+          return
       }
+      
         if (!result) {
           return;
         }
-        value = true;
-        const dataList = this.todo;
-        console.log(dataList)
-        const taskIndex = dataList.indexOf(board);
-        console.log(taskIndex,'taskIndex')
-        if (result.delete) {
-          dataList.splice(taskIndex, 1);
-        } else {
-          console.log(board,'board')
-          console.log(result.board,'result')
-          dataList[taskIndex] = result.board;
-        }
+
+        board.title = checkTitle;
+        board.description = checkDescription;        
+       
+        this.store.collection('boards').doc(resultId).set(board);       
       });
   }
 
@@ -119,10 +96,7 @@ export class BoardsComponent {
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
       height: '100px',
       width: '200px',
-      data: {
-        // board:{
-        //   condition:true
-        // }
+      data: {        
       },
     });
 
@@ -130,38 +104,9 @@ export class BoardsComponent {
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
         const valueCondition = result?.condition;
-        // const resultId = result?.board?.id;
-        // console.log(result?.board?.id, 'task');
-        console.log(result)
-        if (!valueCondition) {
-          console.log(valueCondition)
-          const dataList = this.todo;
-          const taskIndex = dataList.indexOf(board);
-          dataList.splice(taskIndex, 1);
-        } else{
-          console.log(valueCondition)
-        //   const dataList = this.todo;
-        // console.log(result)
-        // const taskIndex = dataList.indexOf(board);
-        // dataList.splice(taskIndex, 1);
-        // console.log(taskIndex,'taskIndex')
-        }
-
-        // const dataList = this.todo;
-        // console.log(result)
-        // const taskIndex = dataList.indexOf(board);
-        // dataList.splice(taskIndex, 1);
-        // console.log(taskIndex,'taskIndex')
-        // console.log(valueCondition,'result')
-
-        // if (result) {
-        //   dataList.splice(taskIndex, 1);
-        // } else {
-          // console.log(board,'board')
-          // console.log(result.board,'result')
-          // dataList[taskIndex] = board;
-        // }
-        console.log(this.todo)
+        const resultId = board.id;      
+          if (!valueCondition) 
+          this.store.collection('boards').doc(resultId).delete();          
       });
   }
 

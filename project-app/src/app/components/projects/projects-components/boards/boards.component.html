@@ -2,12 +2,13 @@
 <div class="wrap">
     
     <button class="board" (click) = "newBoard()">Add Board</button>
-    <div class="board" *ngFor= 'let board of todo' (click)="redirectTo(board)">
+    <div class="board" *ngFor= 'let board of (boards | async)' (click)="redirectTo(board)">
         <h3>{{board.title}}</h3>
         <p>{{board.description}}</p>
-        <button ngFor='{ board: data.board}' (click)="edit($event,board)"> Edit </button>
+        <button ngFor='{ board: data.board}' (click)="edit($event,board) "> Edit </button>
         <button ngFor='{ board: data.board}' (click)="remove($event,board)"> Remove</button>
     </div>
     
 </div>
 <app-footer-board></app-footer-board>
+<!-- (list | async)" [task]="task" -->

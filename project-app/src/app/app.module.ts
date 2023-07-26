@@ -12,14 +12,17 @@ import { FooterComponent } from './components/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// import { initializeApp,provideFirebaseApp } from '@angular/fire';
 import { environment } from '../environments/environment';
-// import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-// import { provideAuth, getAuth } from '@angular/fire/auth';
-// import { provideDatabase, getDatabase } from '@angular/fire/database';
-// import { AngularFireModule } from '@angular/fire';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-
+import { RegistrationComponent } from './components/registration/registration.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore } from '@angular/fire/firestore';
+import { provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 
 @NgModule({
@@ -30,6 +33,7 @@ import { environment } from '../environments/environment';
     StartPageComponent,
     HeaderComponent,
     FooterComponent,
+    RegistrationComponent,
 
   ],
   imports: [
@@ -39,12 +43,12 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // AngularFireModule.initializeApp(environment.firebase),
-    // AngularFirestoreModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideFirestore(() => getFirestore()),
-    // provideAuth(() => getAuth()),
-    // provideDatabase(() => getDatabase()),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

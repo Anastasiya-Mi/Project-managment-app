@@ -1,12 +1,19 @@
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
+
+
+
 export const environment = {
+  production:false,
   firebase: {
-    projectId: 'final-task-2f418',
-    appId: '1:621769256442:web:31ebc02b6bfcc3dbc98843',
-    databaseURL: 'https://final-task-2f418-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'final-task-2f418.appspot.com',
-    locationId: 'europe-west',
-    apiKey: 'AIzaSyCg4uGVsklYO5mrDAUl0yRiWaD569ThTKY',
-    authDomain: 'final-task-2f418.firebaseapp.com',
-    messagingSenderId: '621769256442',
+    projectId: 'mangment-system',
+    appId: '1:460611657112:web:e1e772afeff034d11c9fed',
+    storageBucket: 'mangment-system.appspot.com',
+    apiKey: 'AIzaSyCLAB-pyc0YbChlrP1FL8sqBMquOEcwawA',
+    authDomain: 'mangment-system.firebaseapp.com',
+    messagingSenderId: '460611657112',
   },
 };
+
+// export const app = initializeApp(environment.firebase);
+// export const db = getFirestore(app)

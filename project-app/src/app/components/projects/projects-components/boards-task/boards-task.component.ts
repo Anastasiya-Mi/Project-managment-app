@@ -12,37 +12,42 @@ import { DialogColumnComponent } from '../boards-task/dialog-column/dialog-colum
 import { DialogColumnResult } from '../boards-task/dialog-column/dialog-column.component';
 import { DialogTaskComponent } from '../boards-task/dialog-task/dialog-task.component';
 import { DialogTaskResult } from '../boards-task/dialog-task/dialog-task.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Component({
   selector: 'app-boards-task',
   templateUrl: './boards-task.component.html',
   styleUrls: ['./boards-task.component.css'],
 })
 export class BoardsTaskComponent {
-  count!: number;
-  id!: string;
-  user!: Observable<User>;
+  // count!: number;
+  // id!: string;
+  // user!: Observable<User>;
   data!: any;
-  column: BoardList[] | null = null;
+  // columns!: BoardList[] | null = [];
+  columns!:any
+  // columns!:Observable<BoardList[]>;
 
-  columns: BoardList[] = [
-    {
-      title: 'first',
-      condition: true,
-    },
-    {
-      title: 'second',
-      condition: true,
-    },
-  ];
-
+  // columns: BoardList[] = [
+  //   {
+  //     title: 'first',
+  //     condition: true,
+  //   },
+  //   {
+  //     title: 'second',
+  //     condition: true,
+  //   },
+  // ];
+ 
   constructor(
     private activateRoute: ActivatedRoute,
     private projectService: ProjectService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private store: AngularFirestore
   ) {}
 
   ngOnInit(): void {
     this.data = this.projectService.getData();
+    this.columns = this.data.columns
   }
   newColumn() {
     const dialogRef = this.dialog.open(DialogColumnComponent, {
@@ -58,6 +63,8 @@ export class BoardsTaskComponent {
       .afterClosed()
       .subscribe((result: DialogColumnResult | undefined) => {
         let value = result?.column.condition;
+        const data = result?.column
+        console.log(result?.column,this.columns)
         const checkTitle = result?.column.title;
         const checkDescription = result?.column.description;
         if (!checkTitle && !checkDescription) {
@@ -66,7 +73,10 @@ export class BoardsTaskComponent {
         if (!result || !value) {
           return;
         }
-        this.columns.push(result.column);
+        this.columns?.push(result?.column)
+        this.data.columns = this.columns;        
+        console.log(this.data)
+        this.store.collection('boards').doc(this.data.id).set(this.data); 
       });
   }
   edit(event: any, column: BoardList) {
@@ -83,22 +93,25 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogColumnResult | undefined) => {
+        console.log(result)
         let checkTitle = result?.column.title;
+        console.log(checkTitle,result)
         if (!checkTitle || !result) {
           return;
         }
+        column.title = checkTitle;
+        console.log(column.title)
+        // const dataList = this.columns;
 
-        const dataList = this.columns;
+        // const taskIndex = dataList.indexOf(column);
 
-        const taskIndex = dataList.indexOf(column);
+        // if (result.delete) {
+        //   dataList.splice(taskIndex, 1);
+        // } else {
+        //   let newTitle = dataList[taskIndex];
 
-        if (result.delete) {
-          dataList.splice(taskIndex, 1);
-        } else {
-          let newTitle = dataList[taskIndex];
-
-          newTitle.title = checkTitle;
-        }
+        //   newTitle.title = checkTitle;
+        // }
       });
   }
   remove(event: any, column: BoardList) {
@@ -112,17 +125,17 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
-        const valueCondition = result?.condition;
-        console.log(result);
-        if (!valueCondition) {
-          // console.log(valueCondition)
-          const dataList = this.columns;
-          const taskIndex = dataList.indexOf(column);
-          dataList.splice(taskIndex, 1);
-        } else {
-          // console.log(valueCondition)
-        }
-        // console.log(this.columns)
+      //   const valueCondition = result?.condition;
+      //   console.log(result);
+      //   if (!valueCondition) {
+      //     // console.log(valueCondition)
+      //     const dataList = this.columns;
+      //     const taskIndex = dataList.indexOf(column);
+      //     dataList.splice(taskIndex, 1);
+      //   } else {
+      //     // console.log(valueCondition)
+      //   }
+      //   // console.log(this.columns)
       });
   }
   addTask(column: BoardList) {
