@@ -3,79 +3,78 @@ import { FormGroup,FormControl,Validators,ReactiveFormsModule } from '@angular/f
 import { AuthService } from 'src/app/services/auth.service';
 import {Route, Router} from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
+
+// import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 
-// export class LoginComponent {
-//   loginForm!: FormGroup
-// constructor(private authService: AuthService,
-//   private router:Router){
 
-// }
-//   ngOnInit():void {
-//     this.loginForm = new FormGroup({
-//       'email': new FormControl('',[Validators.required,Validators.email]),
-//       'password': new FormControl('',[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
-//     });
-//     if(!this.authService.isLoggedIn()){
-//       console.log(this.authService.isLoggedIn())
-//       this.router.navigate(['projects'])
-//     }
-//   }
-
-// submitLogin(){
-//   // const email =this.loginForm.value.email;
-//   // const password =this.loginForm.value.password;
-//   // console.log(email,password)
-// this.authService.login(this.loginForm.value).subscribe({
-// next:()=> this.router.navigate(['projects']),
-// error:(error) => alert(error.message)
-// })
-// this.authService.login(email,password).subscribe({
-//   next:()=> this.router.navigate(['projects']),
-//   error:(error) => alert(error.message)
-//   })
-//   }
-// }
 export class LoginComponent implements OnInit {
+  myForm : FormGroup;
 
-  // email : string = '';
-  // password : string = '';
+  constructor(private authService: AuthService,
+    private router: Router,
+    // private fb: NonNullableFormBuilder
+    ) {
+    this.myForm  = new FormGroup({
+      "password": new FormControl("",[
+        Validators.required,
+        Validators.pattern("^[A-Za-z0-9]{3,16}$")
+  ]),
+      "email": new FormControl("", [
+                  Validators.required,
+                  Validators.pattern(`^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`)
+      ]),
 
-  // constructor(private auth : AuthService) { }
-
-  // ngOnInit(): void {
-  // }
-
-  // login() {
-
-  //   if(this.email == '') {
-  //     alert('Please enter email');
-  //     return;
-  //   }
-
-  //   if(this.password == '') {
-  //     alert('Please enter password');
-  //     return;
-  //   }
-
-  //   this.auth.login(this.email,this.password);
-
-  //   this.email = '';
-  //   this.password = '';
-
-  // }
-  constructor(private authService: AuthService) { }
+  });
+   }
 
   ngOnInit() {
   }
 
-  onSignin(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
-    this.authService.signinUser(email, password);
-  }
+  // onSignin() {
+  //   const { email, password } = this.myForm.value;
+  //   // const email = form.value.email;
+  //   // const password = form.value.password;
+  //   if (!this.myForm.valid || !email || !password) {
+  //     return;
+  //   }
+  //   this.authService.signinUser(email, password)
+  //   // .pipe(
+  //   //   this.toast.observe({
+  //   //     success: 'Logged in successfully',
+  //   //     loading: 'Logging in...',
+  //   //     error: ({ message }) => `There was an error: ${message} `,
+  //   //   })
+  //   // )
+  //   // .subscribe(() => {
+  //   //   this.router.navigate(['/home']);
+  //   // });
+  // }
+
+ submit() {
+    const { email, password } = this.myForm.value;
+
+    if (!this.myForm.valid || !email || !password) {
+      return;
+    }
+
+    this.authService
+      .login(email, password)
+      // .pipe(
+      //   this.toast.observe({
+      //     success: 'Logged in successfully',
+      //     loading: 'Logging in...',
+      //     error: ({ message }) => `There was an error: ${message} `,
+      //   })
+      // )
+      .subscribe(() => {
+        this.router.navigate(['/projects']);
+      });
+
+}
 }

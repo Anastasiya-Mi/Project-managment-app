@@ -8,11 +8,17 @@ import { AuthService } from '../../../../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponentBoard {
-constructor(private authService:AuthService){
+constructor(private authService: AuthService,
+  private router: Router){
 
 }
 
 logout(){
   this.authService.logout()
+}
+
+
+redirectTo(){
+  this.router.navigate(['projects/profile']);
 }
 }
