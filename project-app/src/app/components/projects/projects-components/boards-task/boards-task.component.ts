@@ -13,7 +13,17 @@ import { DialogColumnResult } from '../boards-task/dialog-column/dialog-column.c
 import { DialogTaskComponent } from '../boards-task/dialog-task/dialog-task.component';
 import { DialogTaskResult } from '../boards-task/dialog-task/dialog-task.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-// import { Observable } from 'rxjs';
+import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { BehaviorSubject } from 'rxjs'
+
+
+// const getObservable = (collection: AngularFirestoreCollection<Task>) => {
+//   const subject = new BehaviorSubject<BoardList[]>([]);
+//   collection.valueChanges({ idField: 'id' }).subscribe((val: BoardList[]) => {
+//     subject.next(val);
+//   });
+//   return subject;
+// };
 @Component({
   selector: 'app-boards-task',
   templateUrl: './boards-task.component.html',
@@ -21,8 +31,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class BoardsTaskComponent {
   data!: any;
-
-  // columns!:any
+id!:any
+  columns!:any
   tasks!:any
 
 
@@ -32,20 +42,21 @@ export class BoardsTaskComponent {
     private dialog: MatDialog,
     private store: AngularFirestore
   ) {
-    // this.data = this.projectService.getData();
-    // this.columns = this.data.columns || []
+    this.data = this.projectService.getData();
+    this.columns = this.data.columns || []
   // this.tasks = this.data.columns.tasks || []
   }
-  columns = this.store.collection('boards').valueChanges({idField: 'columns'}) as Observable<BoardList[]>;
+  // columns = this.store.collection('boards') as Observable<Boards[]>;
   // data:this.projectService.getData();
 
   // columnsData = this.store.collection('boards').doc(this.data).valueChanges({columns: 'columns'}) as Observable<BoardList[]>;
   // column = this.columnsData.columns
   ngOnInit(): void {
-    this.data = this.projectService.getData();
+    // this.data = this.projectService.getData();
     // this.columns = this.data.columns || []
   }
   newColumn() {
+    console.log(this.columns)
     const dialogRef = this.dialog.open(DialogColumnComponent, {
       height: '400px',
       width: '600px',
@@ -58,9 +69,10 @@ export class BoardsTaskComponent {
     dialogRef
       .afterClosed()
       .subscribe((result: DialogColumnResult | undefined) => {
+        const dataId= this.data.id
         let value = result?.column.condition;
         const data = result?.column
-        console.log(result?.column,this.columns)
+        console.log(result?.column,this.columns,data)
         const checkTitle = result?.column.title;
         const checkDescription = result?.column.description;
         if (!checkTitle && !checkDescription) {
@@ -70,12 +82,13 @@ export class BoardsTaskComponent {
           return;
         }
         const dataList = this.columns;
-        // dataList.push(result?.column)
+        dataList.push(result?.column)       
         this.data.columns = dataList;
         console.log(this.data)
-        this.store.collection('boards').doc(this.data.id).set(this.data);
-
+         this.store.collection('boards').doc(dataId).update(this.data);
+         this.columns = this.data.columns;        
       });
+      console.log(this.columns)
   }
   edit(event: any, column: BoardList) {
     event.stopPropagation();
@@ -102,7 +115,7 @@ export class BoardsTaskComponent {
         // const taskIndex = dataList.indexOf(column);
         // dataList.splice(taskIndex, 1,result?.column);
         this.data.columns = dataList;
-        this.store.collection('boards').doc(dataId).set(this.data);
+        // this.store.collection('boards').doc(dataId.columns).set(this.data);
 
       });
   }

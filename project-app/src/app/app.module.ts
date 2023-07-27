@@ -43,12 +43,12 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),    
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

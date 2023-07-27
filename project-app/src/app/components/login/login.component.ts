@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormGroup,FormControl,Validators,ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import {Route, Router} from '@angular/router';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,31 +42,40 @@ import {Route, Router} from '@angular/router';
 // }
 export class LoginComponent implements OnInit {
 
-  email : string = '';
-  password : string = '';
+  // email : string = '';
+  // password : string = '';
 
-  constructor(private auth : AuthService) { }
+  // constructor(private auth : AuthService) { }
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
+  // }
+
+  // login() {
+
+  //   if(this.email == '') {
+  //     alert('Please enter email');
+  //     return;
+  //   }
+
+  //   if(this.password == '') {
+  //     alert('Please enter password');
+  //     return;
+  //   }
+
+  //   this.auth.login(this.email,this.password);
+
+  //   this.email = '';
+  //   this.password = '';
+
+  // }
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
   }
 
-  login() {
-
-    if(this.email == '') {
-      alert('Please enter email');
-      return;
-    }
-
-    if(this.password == '') {
-      alert('Please enter password');
-      return;
-    }
-
-    this.auth.login(this.email,this.password);
-
-    this.email = '';
-    this.password = '';
-
+  onSignin(form: NgForm) {
+    const email = form.value.email;
+    const password = form.value.password;
+    this.authService.signinUser(email, password);
   }
-
 }

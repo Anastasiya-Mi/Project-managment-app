@@ -30,7 +30,7 @@ export class BoardsComponent {
 
   boards = this.store.collection('boards').valueChanges({idField: 'id'}) as Observable<Boards[]>;
   
-  newBoard() :void{
+  newBoard() :void{   
     
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '400px',
@@ -43,7 +43,7 @@ export class BoardsComponent {
     });
     dialogRef
       .afterClosed()
-      .subscribe((result: DialogResult | undefined) => {
+      .subscribe((result: DialogResult | undefined) => {        
         let value = result?.board.condition;       
         const checkTitle = result?.board.title;
         const checkDescription = result?.board.description;
