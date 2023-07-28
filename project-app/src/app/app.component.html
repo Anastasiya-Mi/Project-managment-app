@@ -1,3 +1,64 @@
-<section>
+<mat-toolbar color="primary">
+  <a href="">Planning Man</a>
+  <div class="btn_wrap">
+    <button mat-button routerLink="login">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+    <button mat-button routerLink="registration">
+      <mat-icon>login</mat-icon>
+      Sign up
+    </button>
+  </div>
+
+</mat-toolbar>
+<div class="content">
   <router-outlet></router-outlet>
-</section>
+</div>
+<!-- <mat-toolbar color="primary">
+  <a href="">Planning Man</a>
+  <ng-container *ngIf="user$ | async as user; else loginButton">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <img
+        width="30"
+        height="30"
+        class="profile-image-toolbar"
+        [src]="user.photoURL ?? '../assets/image-placeholder.png'"
+      />
+      {{ user.displayName }}
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <button mat-button routerLink="projects">
+      <mat-icon>book</mat-icon>
+      Projects
+    </button>
+  </ng-container>
+  <ng-template #loginButton>
+    <button mat-button routerLink="login">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+    <button mat-button routerLink="registration">
+      <mat-icon>login</mat-icon>
+      Sign up
+    </button>
+  </ng-template>
+
+</mat-toolbar> -->
+
+
+
+
+<footer>
+<div class="footer center">
+  <a class="text-white" href="https://github.com/Anastasiya-Mi" target="_blank"><img src="../assets/github.png" alt="github icon"></a>
+</div>
+<div class="footer center">
+  <h5>2023</h5>
+</div>
+<div class="footer center">
+  <a class="text-white" href="https://rs.school/angular/" target="_blank"><img class="rs_school" src="../assets/rs_school_js.svg" alt="rs icon"></a>
+</div>
+</footer>
+
+

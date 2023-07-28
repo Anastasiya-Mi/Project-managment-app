@@ -27,16 +27,16 @@ export class AuthService {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
-  // updateProfile(profileData: Partial<UserInfo>): Observable<any> {
-  //   const user = this.auth.currentUser;
-  //   return of(user).pipe(
-  //     concatMap((user) => {
-  //       if (!user) throw new Error('Not authenticated');
+  updateProfile(profileData: Partial<UserInfo>): Observable<any> {
+    const user = this.auth.currentUser;
+    return of(user).pipe(
+      concatMap((user) => {
+        if (!user) throw new Error('Not authenticated');
 
-  //       return updateProfile(user, profileData);
-  //     })
-  //   );
-  // }
+        return updateProfile(user, profileData);
+      })
+    );
+  }
 
   logout(): Observable<any> {
     return from(this.auth.signOut());
@@ -53,14 +53,14 @@ export class AuthService {
 //   token!: string;
 //   currentUser$ = authState(this.auth);
 //   // auth = getAuth();
- 
+
 
 //   constructor(private router:Router,
 //     private fireauth : AngularFireAuth,
 //     private auth: Auth
 //     ) { }
 
-//     signupUser(email: string, password: string) {  
+//     signupUser(email: string, password: string) {
 
 //       firebase.auth().createUserWithEmailAndPassword(email, password)
 //       .then(res => {
@@ -95,10 +95,10 @@ export class AuthService {
 //         error => console.log(error)
 //         );
 //    }
-   
+
 //    login(email: string, password: string): Observable<any> {
 //     console.log(from(signInWithEmailAndPassword(this.auth, email, password)))
-   
+
 //     return from(signInWithEmailAndPassword(this.auth, email, password));
 //   }
 //     getToken() {

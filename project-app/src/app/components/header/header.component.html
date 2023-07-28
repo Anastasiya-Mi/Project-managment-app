@@ -1,29 +1,19 @@
-<!-- <header class="bg-dark text-white">
-  <div class="d-flex justify-content-between align-items-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-    <div class="text-center">Admin Menu</div>
-    <nav class="navbar">
-      <ul class="navbar nav ml-auto">
-        <a href="/login" style="text-decoration: none;"><button mat-raised-button>Sing in</button></a>
-        <button type="button" class="btn btn-info ms-3" routerLink="/registration">
-          Sign Up
-        </button>        
-      </ul>
-    </nav>
-  </div>
-</header> -->
-
-<mat-toolbar color="primary">
-  Sign Up Flow with Firebase
+<!-- <mat-toolbar color="primary">
+  <a href="">Planning Man</a>
   <ng-container *ngIf="user$ | async as user; else loginButton">
     <button mat-button [matMenuTriggerFor]="userMenu">
       <img
         width="30"
         height="30"
         class="profile-image-toolbar"
-        [src]="user.photoURL ?? 'assets/images/image-placeholder.png'"
+        [src]="user.photoURL ?? '../assets/image-placeholder.png'"
       />
       {{ user.displayName }}
       <mat-icon>expand_more</mat-icon>
+    </button>
+    <button mat-button routerLink="projects">
+      <mat-icon>book</mat-icon>
+      Projects
     </button>
   </ng-container>
   <ng-template #loginButton>
@@ -31,15 +21,22 @@
       <mat-icon>login</mat-icon>
       Login
     </button>
+    <button mat-button routerLink="registration">
+      <mat-icon>login</mat-icon>
+      Sign up
+    </button>
   </ng-template>
+
 </mat-toolbar>
+
+
 
 <div class="content">
   <router-outlet></router-outlet>
 </div>
 
 <mat-menu #userMenu="matMenu">
-  <button mat-menu-item routerLink="/profile">
+  <button mat-menu-item routerLink="projects/profile">
     <mat-icon>account_circle</mat-icon>
     Profile
   </button>
@@ -47,4 +44,4 @@
     <mat-icon>logout</mat-icon>
     Logout
   </button>
-</mat-menu>
+</mat-menu> -->

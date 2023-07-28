@@ -53,7 +53,7 @@ import { MatMenuModule } from '@angular/material/menu'
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule
-    
+
   ],
 })
 export class ProjectsModule {}

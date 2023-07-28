@@ -85,7 +85,7 @@
 //       });
 //   }
 //   }
-  
+
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -177,7 +177,7 @@ export class RegistrationComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/projects']);
       });
   }
 }

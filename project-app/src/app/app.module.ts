@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { initializeApp } from "firebase/app";
+import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getFirestore } from "firebase/firestore";
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
@@ -28,7 +29,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatMenuModule } from '@angular/material/menu'
+import { MatMenuModule } from '@angular/material/menu';
+import { BoardsComponent } from './components/boards/boards.component';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 
@@ -41,6 +45,7 @@ import { MatMenuModule } from '@angular/material/menu'
     HeaderComponent,
     FooterComponent,
     RegistrationComponent,
+    BoardsComponent,
 
   ],
   imports: [
@@ -54,6 +59,7 @@ import { MatMenuModule } from '@angular/material/menu'
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
     AngularFireAuthModule,
     AngularFirestoreModule,
     MatToolbarModule,
@@ -61,7 +67,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
