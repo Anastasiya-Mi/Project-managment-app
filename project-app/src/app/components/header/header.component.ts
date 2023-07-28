@@ -1,22 +1,26 @@
+
 import { Component } from '@angular/core';
-import {Route, Router} from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { UsersService } from '../projects/projects-components/services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private authService:AuthService){
+  user$ = this.usersService.currentUserProfile$;
 
+  constructor(
+    private authService: AuthService,
+    public usersService: UsersService,
+    private router: Router
+  ) {}
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['']);
+    });
   }
-  
-  logout(){
-    this.authService.logout()
-  }
-//  checkStatus(){
-//   console.log(!this.authService.isLoggedIn())
-//   return !this.authService.isLoggedIn();
-//  }
 
 }

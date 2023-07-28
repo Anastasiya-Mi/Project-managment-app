@@ -17,7 +17,13 @@ import { DialogTaskComponent } from './projects-components/boards-task/dialog-ta
 import { ColumnTaskListComponent } from './projects-components/boards-task/column-task-list/column-task-list.component';
 import { UserProfileComponent } from './projects-components/user-profile/user-profile.component';
 // import { HeaderComponent } from 'src/app/components/header/header.component';
-
+import { FormControl, FormGroup, NonNullableFormBuilder,ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu'
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     BoardsComponent,
@@ -40,6 +46,14 @@ import { UserProfileComponent } from './projects-components/user-profile/user-pr
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule
+    
   ],
 })
 export class ProjectsModule {}

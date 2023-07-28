@@ -1,8 +1,8 @@
 <app-header></app-header>
 <h4>Login to Access!</h4>
 <hr>
-<!-- <form [formGroup]="myForm" (ngSubmit)="onSignin()" > -->
-  <form [formGroup]="myForm" (ngSubmit)="submit()">
+
+  <!-- <form [formGroup]="myForm" (ngSubmit)="submit()">
 <div class="form-group">
   <label for="email">Email:</label>
   <input type="email" class="form-control" name="email" formControlName="email">
@@ -20,5 +20,31 @@
                         </div>
 </div>
 <button class="btn btn-primary btn-sm"  [disabled]="myForm.invalid">Login</button>
-</form>
+</form> -->
+
+<div class="form-container mat-elevation-z5">
+  <h1>Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput placeholder="Email address" formControlName="email" />
+      <mat-error *ngIf="email?.errors?.['required']">
+        Email address is required
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" formControlName="password" />
+      <mat-error *ngIf="password?.errors?.['required']">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+    <div class="center margin-top">
+        <button type="submit" mat-raised-button color="primary">Login</button>
+    </div>
+    <span class="center margin-top">New to our platform? <a class="sign-up-link" routerLink="/sign-up">Sign up!</a></span>
+  </form>
+</div>
+
 <app-footer></app-footer>
