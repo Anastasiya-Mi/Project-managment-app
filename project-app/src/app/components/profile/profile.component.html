@@ -1,0 +1,39 @@
+<div class="form-container mat-elevation-z5 text-center" *ngIf="user$ | async as user">
+  <h1>Profile</h1>
+  <div class="profile-image">
+    <img width="120" height="120" class="margin-top mat-elevation-z1"
+      [src]="user.photoURL ?? '../assets/image-placeholder.png'" />
+    <button mat-mini-fab (click)="inputField.click()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <input #inputField hidden type="file" (change)="uploadImage($event, user)" />
+  <form class="margin-top" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+    <div class="row">
+      <mat-form-field>
+        <input type="text" matInput formControlName="firstName" placeholder="First Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput formControlName="lastName" placeholder="Last Name" />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <input type="text" matInput formControlName="displayName" placeholder="Display Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput formControlName="email" placeholder="Email" />
+      </mat-form-field>
+    </div>
+    <div class="btn_wrap">
+      <button type="submit" class="margin-top" mat-raised-button color="primary">
+        Save
+      </button>
+    </div>
+  </form>
+  <button class="margin-top" mat-raised-button color="primary" (click)="removeProfile(user)">
+    Delete
+  </button>
+</div>
+

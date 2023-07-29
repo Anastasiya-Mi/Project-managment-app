@@ -5,10 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,20 +29,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { BoardsComponent } from './components/boards/boards.component';
 import {MatTabsModule} from '@angular/material/tabs';
-
-
+import { HotToastModule } from '@ngneat/hot-toast';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NotFoundComponent,
     StartPageComponent,
-    HeaderComponent,
-    FooterComponent,
     RegistrationComponent,
     BoardsComponent,
+    ProfileComponent,
 
   ],
   imports: [
@@ -60,6 +55,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
+    HotToastModule.forRoot(),
     AngularFireAuthModule,
     AngularFirestoreModule,
     MatToolbarModule,
@@ -68,7 +64,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

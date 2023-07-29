@@ -3,6 +3,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth.service';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 loginForm = new FormGroup({
   email:new FormControl('', [Validators.required, Validators.email]),
-  password:new FormControl('',[Validators.required,Validators.minLength(5)])
+  password:new FormControl('',[Validators.required,Validators.minLength(6)])
 })
   // loginForm = this.fb.group({
   //   email: ['', [Validators.required, Validators.email]],
@@ -38,22 +39,20 @@ loginForm = new FormGroup({
 
   submit() {
     const { email, password } = this.loginForm.value;
-
     if (!this.loginForm.valid || !email || !password) {
       return;
     }
-
     this.authService
       .login(email, password)
       .pipe(
         this.toast.observe({
           success: 'Logged in successfully',
           loading: 'Logging in...',
-          error: ({ message }) => `There was an error: ${message} `,
+          error: (error) =>`There was an error:` + error.message,
         })
       )
       .subscribe(() => {
-        this.router.navigate(['/projects']);
+        this.router.navigate(['/boards']);
       });
   }
 }

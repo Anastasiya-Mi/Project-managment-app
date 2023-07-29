@@ -11,7 +11,7 @@ import { UsersService } from '../services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponentBoard {
-  user$ = this.usersService.currentUserProfile$;
+  // user$ = this.usersService.currentUserProfile$;
 
   constructor(
     private authService: AuthService,

@@ -1,26 +1,5 @@
-<app-header></app-header>
-  <h4>SignUp to Access!</h4>
+<h4>SignUp to Access!</h4>
 <hr>
-<!-- <form [formGroup]="myForm" (ngSubmit)="onSignup()">
-	<div class="form-group">
-		<label for="email">Email:</label>
-  <input type="email" class="form-control" name="email" formControlName="email">
-  <div class="alert alert-danger"
-                            *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">
-                            Некорректный email
-                        </div>
-</div>
-<div class="form-group">
-  <label for="email">Password:</label>
-  <input type="password" class="form-control" name="password" formControlName="password">
-  <div class="alert alert-danger"
-  *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
-  Некорректный email
-</div>
-</div>
-<button class="btn btn-primary btn-sm" [disabled]="myForm.invalid">Signup</button>
-</form> -->
-
 <div class="form-container mat-elevation-z5">
   <h1>Sign Up a New User!</h1>
   <form [formGroup]="signUpForm" (ngSubmit)="submit()">
@@ -40,33 +19,28 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input
-        matInput
-        type="password"
-        placeholder="Password"
-        formControlName="password"
-      />
+      <input matInput type="password" placeholder="Password" formControlName="password" />
       <mat-error *ngIf="password?.errors?.['required']">
         Password is required
       </mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">
+        Password must be at least 6 characters long
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input
-        matInput
-        type="password"
-        placeholder="Confirm Password"
-        formControlName="confirmPassword"
-      />
-      <mat-error *ngIf="confirmPassword?.errors?.['required']">
-        Confirm Password is required
+      <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+      <mat-error *ngIf="password?.errors?.['required']">
+        Confirm passwords is required
+      </mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">
+        Password must be at least 6 characters long
       </mat-error>
     </mat-form-field>
     <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
-        Passwords should match
+      Passwords should match
     </mat-error>
     <div class="center margin-top">
       <button type="submit" mat-raised-button color="primary">Sign Up!</button>
     </div>
   </form>
 </div>
-  <app-footer></app-footer>

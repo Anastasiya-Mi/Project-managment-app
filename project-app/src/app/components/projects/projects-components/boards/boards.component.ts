@@ -17,7 +17,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class BoardsComponent {
   personalList!:Observable<User[]>;
 
-  constructor(private projectService:ProjectService, 
+  constructor(private projectService:ProjectService,
     private router:Router,
     private dialog: MatDialog ,
     private store: AngularFirestore){}
@@ -29,9 +29,9 @@ export class BoardsComponent {
   }
 
   boards = this.store.collection('boards').valueChanges({idField: 'id'}) as Observable<Boards[]>;
-  
-  newBoard() :void{   
-    
+
+  newBoard() :void{
+
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '400px',
       width: '600px',
@@ -43,8 +43,8 @@ export class BoardsComponent {
     });
     dialogRef
       .afterClosed()
-      .subscribe((result: DialogResult | undefined) => {        
-        let value = result?.board.condition;       
+      .subscribe((result: DialogResult | undefined) => {
+        let value = result?.board.condition;
         const checkTitle = result?.board.title;
         const checkDescription = result?.board.description;
         if (!checkTitle && !checkDescription) {
@@ -53,10 +53,10 @@ export class BoardsComponent {
         if (!result || !value) {
           return;
         }
-        this.store.collection('boards').add(result.board);          
+        this.store.collection('boards').add(result.board);
       });
   }
-  
+
 
   edit(event:any,board:Boards): void{
     console.log('edit',board )
@@ -65,29 +65,29 @@ export class BoardsComponent {
       height: '400px',
       width: '600px',
       data: {
-        board:{          
-        }        
+        board:{
+        }
       },
-    });   
+    });
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResult | undefined) => {
-        const resultId = board.id;       
+        const resultId = board.id;
         let checkTitle = result?.board.title;
-        let checkDescription = result?.board.description;   
-      
-        if (!checkTitle && !checkDescription) {          
+        let checkDescription = result?.board.description;
+
+        if (!checkTitle && !checkDescription) {
           return
       }
-      
+
         if (!result) {
           return;
         }
 
         board.title = checkTitle;
-        board.description = checkDescription;        
-       
-        this.store.collection('boards').doc(resultId).set(board);       
+        board.description = checkDescription;
+
+        this.store.collection('boards').doc(resultId).set(board);
       });
   }
 
@@ -96,7 +96,7 @@ export class BoardsComponent {
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
       height: '100px',
       width: '200px',
-      data: {        
+      data: {
       },
     });
 
@@ -104,15 +104,15 @@ export class BoardsComponent {
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
         const valueCondition = result?.condition;
-        const resultId = board.id;      
-          if (!valueCondition) 
-          this.store.collection('boards').doc(resultId).delete();          
+        const resultId = board.id;
+          if (!valueCondition)
+          this.store.collection('boards').doc(resultId).delete();
       });
   }
 
 
 ngOnInit() : void{
   this.personalList = this.projectService.getPersonalList();
-  
+
 }
 }

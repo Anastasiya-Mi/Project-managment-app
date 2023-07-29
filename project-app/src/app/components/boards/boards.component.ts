@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-boards',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./boards.component.css']
 })
 export class BoardsComponent {
+  user$ = this.authService.currentUser$;
+  constructor(private authService: AuthService,
+    private router: Router ){
 
+  }
 }
