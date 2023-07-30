@@ -6,6 +6,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { BoardsComponent } from './components/boards/boards.component';
 import {canActivate,redirectUnauthorizedTo,redirectLoggedInTo} from '@angular/fire/auth-guard'
 import { ProfileComponent } from './components/profile/profile.component';
+import { BoardTaskComponent } from './components/board-task/board-task.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectToBoards = () => redirectLoggedInTo(['boards']);
@@ -15,17 +16,22 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    ...canActivate(redirectToBoards),
+    // ...canActivate(redirectToBoards),
   },
   {
     path: 'registration',
     component: RegistrationComponent,
-    ...canActivate(redirectToBoards),
+    // ...canActivate(redirectToBoards),
   },
   {
     path: 'boards',
     component: BoardsComponent,
-    ...canActivate(redirectToLogin),
+    // ...canActivate(redirectToLogin),
+  },
+  {
+    path: 'task',
+    component: BoardTaskComponent,
+    // ...canActivate(redirectToLogin),
   },
   {
     path: 'profile',

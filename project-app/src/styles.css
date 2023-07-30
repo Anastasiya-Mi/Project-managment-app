@@ -1,11 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%;
-  box-sizing: border-box; }
+html, body { height: 100vh;
+  box-sizing: border-box;
+  /* min-width:  1100px; */
+  /* overflow:hidden; */
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow-x:hidden; }
 
 mat-toolbar {
   justify-content: space-between;
+}
+.btn_add_board{
+  width: 150px;
 }
 footer{
   display: flex;
@@ -49,18 +57,61 @@ a{
 }
 
 .content {
+
   padding: 32px;
   min-height: 100%;
   flex: 1 1 auto;
 }
+.board_list{
+  overflow: scroll;
+  min-width: 1100px;
+  /* overflow-x: auto;
+  overflow-y: auto; */
+}
+
 .wrap{
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  width:calc(100vw - 70px);
+  /* overflow-x: auto;
+  overflow-y: hidden; */
+}
+.btn_add{
+ width: 70px;
+ background: #3f51b5;
+ color: #eceff1;
+ margin: 5px;
+ border-radius: 5px;
+}
+.board_list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.board_card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width:200px;
+  height:200px;
+  min-height: 100px;
+  border: #323232 2px solid;
+  border-radius: 16px;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.btn_board_wrap{
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
 }
  app-root{
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 100vh;
  }
  .form-container{
   display: flex;
@@ -127,6 +178,44 @@ margin-top: 16px;
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+.cards_wrap{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: #c5cae9;
+  border-radius: 16px;
+  overflow-x: hidden;
+}
+
+.search{
+  margin: 24px;
+}
+
+.cards_wrap_boards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  overflow-y: auto;
+}
+ app-dialog{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  max-width: 300px;
+  height: 300px;
+  width: 100%;
+  margin:auto ;
+}
+.window{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .hot-toast-animated-icon {
   animation: var(--hot-toast-animated-icon-animation, hotToastEnter 0.3s ease-in-out forwards);

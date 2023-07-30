@@ -1,0 +1,26 @@
+<div class="wrap">
+  <button class="column" (click) = "newColumn()">Add Column</button>
+  <div class="task">
+      <h5>{{data.title}}</h5>
+      <p>{{data.description}} + 111</p>
+  </div>
+  <div class="columns" *ngFor= 'let column of columns'>
+      <h3 ngFor='{ column: data.column}' (click)="edit($event,column)">{{column.title}}</h3>
+      <!-- <button ngFor='{ column: data.column}' (click)="edit($event,column)"> Edit </button> -->
+      <button ngFor='{ column: data.column}' (click)="remove($event,column)"> Remove</button>
+      <button ngFor='{ column: data.column.tasks}' (click)="addTask(column)"> Add Task</button>
+      <!-- <app-column-task-list *ngFor="let task of column.tasks" [task]="column.tasks"> -->
+          <div class="task" *ngFor="let task of column.tasks">
+              <p ngFor='{ task: data.task}' (click)="editTask($event,task,column)">{{task}} </p>
+              <button ngFor='{ task: data.task}' (click)="editTask($event,task,column)"> Edit </button>
+              <button ngFor='{ task: data.task}' (click)="removeTask($event,task,column)">Remove</button>
+
+          </div>
+      <!-- </app-column-task-list> -->
+
+
+  </div>
+
+  <!-- <button class="column" (click) = "newColumn()">Add Column</button> -->
+  <button routerLink="/projects">go Back</button>
+  </div>

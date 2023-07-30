@@ -1,23 +1,30 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Observable, map } from 'rxjs';
 // import { Subscribe } from 'rxjs';
-import { User } from '../../User';
+import { UsersService } from '../../services/users.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ProjectService } from '../services/services.service';
-import { Boards, BoardList, Task } from '../../Boards';
+import { BoardService } from '../../services/board.service';
+import { Boards, BoardList, Task } from '../../models/boards';
 import {
   ConfirmWindowComponent,
   DialogResultWindow,
-} from '../../../confirm-window/confirm-window.component';
+} from '../confirm-window/confirm-window.component';
 import { MatDialog } from '@angular/material/dialog';
 // import { MatDialog } from '@angular/material/dialog';
-import { DialogColumnComponent } from '../../../dialog-column/dialog-column.component';
-import { DialogColumnResult } from '../../../dialog-column/dialog-column.component';
-import { DialogTaskComponent } from '../../../dialog-task/dialog-task.component';
-import { DialogTaskResult } from '../../../dialog-task/dialog-task.component';
+import { DialogColumnComponent } from '../dialog-column/dialog-column.component';
+import { DialogColumnResult } from '../dialog-column/dialog-column.component';
+import { DialogTaskComponent } from '../dialog-task/dialog-task.component';
+import { DialogTaskResult } from '../dialog-task/dialog-task.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
+
+@Component({
+  selector: 'app-boards-task',
+  templateUrl: './board-task.component.html',
+  styleUrls: ['./board-task.component.css'],
+})
+
 
 // const getObservable = (collection: AngularFirestoreCollection<Task>) => {
 //   const subject = new BehaviorSubject<BoardList[]>([]);
@@ -26,12 +33,8 @@ import { BehaviorSubject } from 'rxjs';
 //   });
 //   return subject;
 // };
-@Component({
-  selector: 'app-boards-task',
-  templateUrl: './boards-task.component.html',
-  styleUrls: ['./boards-task.component.css'],
-})
-export class BoardsTaskComponent {
+
+export class BoardTaskComponent {
   data!: any;
   id!: any;
   columns!: any;
@@ -39,11 +42,11 @@ export class BoardsTaskComponent {
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private projectService: ProjectService,
+    private boardService: BoardService,
     private dialog: MatDialog,
     private store: AngularFirestore
   ) {
-    this.data = this.projectService.getData();
+    this.data = this.boardService.getData();
     this.columns = this.data.columns || [];
     // this.tasks = this.data.columns.tasks || []
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ProfileUser } from '../models/user-profile';
+import { Boards } from '../models/boards';
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import {
   collection,
@@ -10,6 +11,8 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  collectionData,
+  query
 } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth, deleteUser } from 'firebase/auth';
@@ -48,6 +51,12 @@ export class UsersService {
       })
     );
   }
+  
+  get allUsers$(): Observable<ProfileUser[]> {
+    const ref = collection(this.firestore, 'users');
+    const queryAll = query(ref);
+    return collectionData(queryAll) as Observable<ProfileUser[]>;
+  }
 
   addUser(user: ProfileUser): Observable<any> {
     const ref = doc(this.firestore, 'users', user.uid);
@@ -57,7 +66,7 @@ export class UsersService {
     const ref = doc(this.firestore, 'users', user.uid);
     return from(updateDoc(ref, { ...user }));
   }
-  users = this.store.collection('users').valueChanges({ idField: 'id' });
+
 
   deleteUserAccount() {
     const auth = getAuth();

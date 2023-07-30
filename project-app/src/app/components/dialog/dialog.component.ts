@@ -1,15 +1,13 @@
-import { Component, Inject,Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Boards,BoardList,Task} from '../../Boards';
-
+import { Boards, BoardList, Task } from '../projects/Boards';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent {
- 
   private backupTask: Partial<Boards> = { ...this.data.board };
 
   constructor(
@@ -20,16 +18,10 @@ export class DialogComponent {
   cancel(): void {
     this.data.board.title = this.backupTask.title;
     this.data.board.description = this.backupTask.description;
-    this.data.board.condition = false;    
+    this.data.board.condition = false;
     this.dialogRef.close(this.data);
-
   }
 }
-
-
-
-
-
 
 export interface DialogData {
   board: Partial<Boards>;

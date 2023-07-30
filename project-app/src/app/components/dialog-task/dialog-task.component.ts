@@ -1,11 +1,11 @@
-import { Component, Inject,Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Boards,BoardList,Task} from '../../../Boards';
+import { Boards, BoardList, Task } from '../projects/Boards';
 
 @Component({
   selector: 'app-dialog-task',
   templateUrl: './dialog-task.component.html',
-  styleUrls: ['./dialog-task.component.css']
+  styleUrls: ['./dialog-task.component.css'],
 })
 export class DialogTaskComponent {
   private backupTask: Partial<Task> = { ...this.data.task };
@@ -20,7 +20,6 @@ export class DialogTaskComponent {
     this.data.task = this.backupTask;
     this.data.task.condition = false;
     this.dialogRef.close(this.data);
-
   }
 }
 
@@ -30,7 +29,7 @@ export interface DialogTaskData {
 }
 
 export interface DialogTaskResult {
-  task: Task
+  task: Task;
   // column: BoardList;
   delete?: boolean;
 }

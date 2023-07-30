@@ -1,3 +1,16 @@
-<h1 *ngIf="user$ | async as user">Welcome to our app, {{user.displayName}}!</h1>
-
-<p>boards works!</p>
+<div class="info" *ngIf="user$ | async as user">
+  <div class="wrap">
+    <button class="btn_add_board" (click)="newBoard(user)" mat-button>
+      <mat-icon>add</mat-icon>Add Board</button>
+    <div class="board_list">
+      <div class="board_card" *ngFor='let board of (boards | async)' (click)="redirectTo(board)">
+        <h3>{{board.title}}</h3>
+        <p>{{board.description}}</p>
+        <div class="btn_board_wrap">
+          <button class="btn_add" ngFor='{ board: data.board}' (click)="edit($event,board) "> Edit </button>
+          <button class="btn_add" ngFor='{ board: data.board}' (click)="remove($event,board)"> Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

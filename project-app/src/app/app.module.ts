@@ -27,11 +27,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BoardsComponent } from './components/boards/boards.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { DialogComponent } from './components/dialog/dialog.component';
+import { ConfirmWindowComponent } from './components/confirm-window/confirm-window.component';
+import { DialogColumnComponent } from './components/dialog-column/dialog-column.component';
+import { DialogTaskComponent } from './components/dialog-task/dialog-task.component'
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { BoardTaskComponent } from './components/board-task/board-task.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +47,11 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegistrationComponent,
     BoardsComponent,
     ProfileComponent,
-
+    DialogComponent,
+    ConfirmWindowComponent,
+    DialogColumnComponent,
+    DialogTaskComponent,
+    BoardTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +75,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatInputModule,
     MatMenuModule,
     MatTabsModule,
+    MatDialogModule,
+    MatAutocompleteModule
 
   ],
   providers: [],
