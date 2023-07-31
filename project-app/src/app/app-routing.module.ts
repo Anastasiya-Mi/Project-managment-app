@@ -38,13 +38,13 @@ const routes: Routes = [
     component: ProfileComponent,
     ...canActivate(redirectToLogin),
   },
-  {
-    path: 'projects',
-    loadChildren: () =>
-      import('./components/projects/projects.module').then(
-        (mod) => mod.ProjectsModule
-      ),
-  },
+  // {
+  //   path: 'projects',
+  //   loadChildren: () =>
+  //     import('./components/projects/projects.module').then(
+  //       (mod) => mod.ProjectsModule
+  //     ),
+  // },
   { path: '**', redirectTo: '' },
 ];
 

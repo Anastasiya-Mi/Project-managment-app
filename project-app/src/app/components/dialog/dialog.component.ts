@@ -30,6 +30,6 @@ export interface DialogData {
 
 export interface DialogResult {
   board: Boards;
-  // column: BoardList;
+  userId: string;
   delete?: boolean;
 }

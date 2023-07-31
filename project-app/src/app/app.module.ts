@@ -38,6 +38,8 @@ import { DialogColumnComponent } from './components/dialog-column/dialog-column.
 import { DialogTaskComponent } from './components/dialog-task/dialog-task.component'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { BoardTaskComponent } from './components/board-task/board-task.component';
+import { CardsComponent } from './components/cards/cards.component';
+import { ColumnsComponent } from './components/board-task/columns/columns.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { BoardTaskComponent } from './components/board-task/board-task.component
     ConfirmWindowComponent,
     DialogColumnComponent,
     DialogTaskComponent,
-    BoardTaskComponent
+    BoardTaskComponent,
+    CardsComponent,
+    ColumnsComponent
   ],
   imports: [
     BrowserModule,

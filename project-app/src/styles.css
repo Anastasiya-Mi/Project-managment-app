@@ -55,7 +55,19 @@ a{
   text-decoration: none;
   color: aliceblue;
 }
-
+.info_task{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+.info_task> h4,.info_task> p{
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+}
 .content {
 
   padding: 32px;

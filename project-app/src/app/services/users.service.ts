@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ProfileUser } from '../models/user-profile';
-import { Boards } from '../models/boards';
+// import { Boards } from '../models/boards';
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import {
   collection,
   doc,
   docData,
-  getDoc,
+  // getDoc,
   setDoc,
   updateDoc,
-  deleteDoc,
+  // deleteDoc,
   collectionData,
   query
 } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth, deleteUser } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import {
-  Auth,
-  signInWithEmailAndPassword,
-  authState,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  UserInfo,
-  UserCredential,
-} from '@angular/fire/auth';
+// import {
+//   Auth,
+//   signInWithEmailAndPassword,
+//   authState,
+//   createUserWithEmailAndPassword,
+//   updateProfile,
+//   UserInfo,
+//   UserCredential,
+// } from '@angular/fire/auth';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 @Injectable({
