@@ -16,35 +16,28 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    // ...canActivate(redirectToBoards),
+    ...canActivate(redirectToBoards),
   },
   {
     path: 'registration',
     component: RegistrationComponent,
-    // ...canActivate(redirectToBoards),
+    ...canActivate(redirectToBoards),
   },
   {
     path: 'boards',
     component: BoardsComponent,
-    // ...canActivate(redirectToLogin),
+    ...canActivate(redirectToLogin),
   },
   {
     path: 'task',
     component: BoardTaskComponent,
-    // ...canActivate(redirectToLogin),
+    ...canActivate(redirectToLogin),
   },
   {
     path: 'profile',
     component: ProfileComponent,
     ...canActivate(redirectToLogin),
   },
-  // {
-  //   path: 'projects',
-  //   loadChildren: () =>
-  //     import('./components/projects/projects.module').then(
-  //       (mod) => mod.ProjectsModule
-  //     ),
-  // },
   { path: '**', redirectTo: '' },
 ];
 

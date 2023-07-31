@@ -48,7 +48,8 @@ loginForm = new FormGroup({
         this.toast.observe({
           success: 'Logged in successfully',
           loading: 'Logging in...',
-          error: (error) =>`There was an error:` + error.message,
+          error: (message) =>
+           message
         })
       )
       .subscribe(() => {

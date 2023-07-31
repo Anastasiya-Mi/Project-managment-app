@@ -40,6 +40,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { BoardTaskComponent } from './components/board-task/board-task.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { ColumnsComponent } from './components/board-task/columns/columns.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { ColumnsComponent } from './components/board-task/columns/columns.compon
     MatMenuModule,
     MatTabsModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule
 
   ],
   providers: [],

@@ -7,7 +7,7 @@ import {
 } from '@angular/material/dialog';
 // import { DialogComponent } from '../dialog/dialog.component';
 // import { DialogResult } from '../dialog/dialog.component';
-import { Boards, BoardList, Task } from '../projects/Boards';
+import { Boards, BoardList, Task } from '../../models/boards';
 @Component({
   selector: 'app-confirm-window',
   templateUrl: './confirm-window.component.html',

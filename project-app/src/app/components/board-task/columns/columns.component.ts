@@ -19,6 +19,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { ProfileUser } from 'src/app/models/user-profile';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-columns',
@@ -36,6 +37,7 @@ export class ColumnsComponent {
     .valueChanges({ idField: 'id' }) as Observable<BoardList[]>;
   data: any;
   columns: any;
+  tasks = [...];
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -238,4 +240,17 @@ export class ColumnsComponent {
   }
   // }
   // )}
+ task: Task[] = [];
+//  tasks = [...];
+  drop(event:CdkDragDrop<BoardList[]>) : void{
+    // if (event.previousContainer === event.container) {
+    //   return;
+    // }
+    // if (!event.container.data || !event.previousContainer.data) {
+    //   return;
+    // }
+    moveItemInArray(this.tasks,event.previousIndex,event.currentIndex
+    );
+
+  }
 }

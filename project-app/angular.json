@@ -62,7 +62,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "project-app:build:production"
+
             },
             "development": {
               "browserTarget": "project-app:build:development"
@@ -73,7 +73,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "project-app:build"
+            "browserTarget": "project-app:build",
+            "format": "xlf",
+            "outputPath": "src/locale"
           }
         },
         "test": {

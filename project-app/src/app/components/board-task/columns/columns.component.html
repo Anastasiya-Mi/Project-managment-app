@@ -1,6 +1,6 @@
 <div class="info" *ngIf="user$ | async as user">
-  <div class="colunm_wrap">
-    <div class="column" *ngFor="let column of columnsList | async">
+  <div cdkDropList class="colunm_wrap">
+    <div cdkDrag class="column" *ngFor="let column of columnsList | async" >
       <div class="column_header">
         <h3 ngFor=" {column: data.column}" (click)="edit($event,column,user)">{{column.title}}</h3>
         <!-- <button ngFor='{column: data.column}' (click)="edit($event,data)"> Edit </button> -->
@@ -10,8 +10,10 @@
           <mat-icon>add</mat-icon></button>
 
       </div>
-      <div class="task_wrap">
-      <div class="task" *ngFor="let task of column.tasks">
+      <div cdkDropList class="task_wrap"
+      (cdkDropListDropped) ="drop($event)"
+      >
+      <div cdkDrag class="task" *ngFor="let task of column.tasks" >
         <p ngFor='{ column: data.column}' (click)="editTask($event,column,user,task)">{{task}} </p>
         <!-- <button ngFor='{ task: data.task}' (click)="editTask($event,task,column)"> Edit </button> -->
         <button ngFor='{ column: data.column}' (click)="removeTask($event,column,user,task)"mat-button>

@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Boards, BoardList, Task } from '../projects/Boards';
+import { Boards, BoardList, Task } from '../../models/boards';
 
 @Component({
   selector: 'app-dialog',
