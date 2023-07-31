@@ -14,6 +14,12 @@ import {
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import {
+  ConfirmWindowComponent,
+  DialogResultWindow,
+} from '../confirm-window/confirm-window.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 @UntilDestroy()
 @Component({
   selector: 'app-profile',
@@ -36,7 +42,9 @@ export class ProfileComponent {
     private toast: HotToastService,
     private usersService: UsersService,
     private fb: NonNullableFormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private store: AngularFirestore,
   ) {}
   ngOnInit(): void {
     this.usersService.currentUserProfile$
@@ -83,7 +91,43 @@ export class ProfileComponent {
   }
 
   removeProfile(user: ProfileUser) {
-    this.usersService.removeUser(user);
-    this.usersService.deleteUserAccount();
+    const dialogRef = this.dialog.open(ConfirmWindowComponent, {
+      height: '100px',
+      width: '200px',
+      data: {},
+    });
+
+    dialogRef
+      .afterClosed()
+      .subscribe((result: DialogResultWindow | undefined) => {
+        // const dataId = this.data.id;
+        const valueCondition = result?.condition;
+        // const dataId = this.data.id;
+        // const columnId = column.id;
+
+        if (valueCondition) {
+          return;
+        }
+          // const dataList = column.tasks;
+          // console.log(dataList);
+          // if (dataList) {
+          //   // const taskIndex = dataList.findIndex((item) => item === task);
+          //   dataList.splice(taskIndex, 1);
+          // }
+        //   console.log(column);
+        //   console.log(this.data);
+          this.store
+        .collection('users')
+        .doc(user.uid).delete()
+        // .collection('boards')
+        // .doc(dataId)
+        // .collection('columns')
+        // .doc(columnId)
+        // .update(column);
+        this.usersService.deleteUserAccount();
+      });
+// }
+    // this.usersService.removeUser(user);
+    // this.usersService.deleteUserAccount();
   }
 }

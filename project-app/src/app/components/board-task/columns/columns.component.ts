@@ -23,44 +23,32 @@ import { ProfileUser } from 'src/app/models/user-profile';
 @Component({
   selector: 'app-columns',
   templateUrl: './columns.component.html',
-  styleUrls: ['./columns.component.css']
+  styleUrls: ['./columns.component.css'],
 })
 export class ColumnsComponent {
   user$ = this.usersService.currentUserProfile$;
-  boardList = this.boardService.currentUserProfileBoardList()
-  .valueChanges({ idField: 'id' }) as Observable<BoardList[]>;
-  data$= this.boardService.currentUserProfileBoardListColumnData$;
-data:any
-columns:any
+  boardList = this.boardService
+    .currentUserProfileBoardList()
+    .valueChanges({ idField: 'id' }) as Observable<BoardList[]>;
+  data$ = this.boardService.currentUserProfileBoardListColumnData$;
+  columnsList = this.boardService
+    .currentUserProfileBoardListData()
+    .valueChanges({ idField: 'id' }) as Observable<BoardList[]>;
+  data: any;
+  columns: any;
 
-constructor(
-  private activateRoute: ActivatedRoute,
-  private boardService: BoardService,
-  private dialog: MatDialog,
-  private store: AngularFirestore,
-  private usersService: UsersService
-) {
-  this.data = this.boardService.getData();
-  // this.data = this.boardService.getData();
-  // console.log(this.data)
-  // if(this.data.columns){
-    // this.columns = this.data.columns;
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private boardService: BoardService,
+    private dialog: MatDialog,
+    private store: AngularFirestore,
+    private usersService: UsersService
+  ) {
+    this.data = this.boardService.getData();
   }
-  // this.columns = this.data.columns;
-  // if(this.data.columns === undefined){
-  //   this.data.columns = {};
-  //   this.data.columns.title = '';
-  //   this.columns = this.data.columns;
-  // }
-  // console.log(this.data.columns)
-  // console.log(this.data.columns.title)
-  // this.tasks = this.data.columns.tasks || []
-// }
 
-
-edit(event: any, column: BoardList,user:ProfileUser){
-  console.log(column.id)
-  event.stopPropagation();
+  edit(event: any, column: BoardList, user: ProfileUser) {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(DialogColumnComponent, {
       height: '400px',
       width: '600px',
@@ -73,26 +61,181 @@ edit(event: any, column: BoardList,user:ProfileUser){
     dialogRef
       .afterClosed()
       .subscribe((result: DialogColumnResult | undefined) => {
-        console.log(result, column);
+        console.log(result);
         const dataId = this.data.id;
-        const columnId = this.columns.id;
+        const columnId = column.id;
         const checkTitle = result?.column.title;
-        const currentTitle = column.title;
         if (!checkTitle || !result) {
           return;
         }
-        const dataList = this.columns;
-        // const taskIndex = dataList.indexOf(column);
-        // dataList.splice(taskIndex, 1,result?.column);
-        // this.data.columns = dataList;
-        this.store.collection('users').doc(user.uid).collection('boards')
-        .doc(dataId).collection('columns').add(result.column)
+        this.store
+          .collection('users')
+          .doc(user.uid)
+          .collection('boards')
+          .doc(dataId)
+          .collection('columns')
+          .doc(columnId)
+          .update(result.column);
       });
-}
-// remove(event: any, column: BoardList){
+  }
 
-// }
-// addTask(column: BoardList){
+  remove(event: any, column: BoardList, user: ProfileUser) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(ConfirmWindowComponent, {
+      height: '100px',
+      width: '200px',
+      data: {},
+    });
+    dialogRef
+      .afterClosed()
+      .subscribe((result: DialogResultWindow | undefined) => {
+        const valueCondition = result?.condition;
+        const dataId = this.data.id;
+        const columnId = column.id;
+        if (!valueCondition) {
+          this.store
+            .collection('users')
+            .doc(user.uid)
+            .collection('boards')
+            .doc(dataId)
+            .collection('columns')
+            .doc(columnId)
+            .delete();
+        }
+      });
+  }
 
-// }
+  addTask(column: BoardList, user: ProfileUser) {
+    console.log(column);
+
+    const dialogRef = this.dialog.open(DialogTaskComponent, {
+      height: '400px',
+      width: '400px',
+      data: {},
+    });
+    dialogRef
+      .afterClosed()
+      .subscribe((result: DialogTaskResult | undefined) => {
+        const task = result?.task;
+        const dataId = this.data.id;
+        const columnId = column.id;
+        console.log(task);
+        // const dataId = this.data.id;
+        if (!task) {
+          return;
+        }
+        // column?.tasks.push(task);
+        if (!column.tasks && typeof task === 'string') {
+          column.tasks = [];
+          column.tasks.push(task);
+        } else if (typeof task === 'string') {
+          column?.tasks?.push(task);
+        }
+        // column.tasks?.push(task);
+        // column.tasks =this.tasks
+        // console.log(column, dataId);
+
+        // const dataList = this.columns;
+        // const taskIndex = dataList.indexOf(column);
+        // const value =dataList[taskIndex];
+        // console.log(value)
+        // dataList.splice(taskIndex, 1,value);
+        console.log(column);
+        this.store
+          .collection('users')
+          .doc(user.uid)
+          .collection('boards')
+          .doc(dataId)
+          .collection('columns')
+          .doc(columnId)
+          .set(column);
+        // this.data.columns = dataList;
+        // console.log(this.data);
+        // this.store.collection('boards').doc(dataId).set(this.data);
+      });
+  }
+  // addTask(column: BoardList){
+  editTask(event: any, column: BoardList, user: ProfileUser, task: Task) {
+    console.log('edit', column.tasks, task);
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(DialogTaskComponent, {
+      height: '400px',
+      width: '400px',
+      data: {
+        column: {
+          condition: true,
+        },
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .subscribe((result: DialogTaskResult | undefined) => {
+        const checkResult = result?.task;
+        const dataId = this.data.id;
+        const columnId = column.id;
+        if (!result) {
+          return;
+        }
+
+        if (typeof checkResult === 'string') {
+          const dataList = column.tasks;
+          if (dataList) {
+            const taskIndex = dataList.findIndex((item) => item === task);
+            dataList.splice(taskIndex, 1, checkResult);
+            }
+            console.log(column);
+            console.log(this.data);
+            this.store
+          .collection('users')
+          .doc(user.uid)
+          .collection('boards')
+          .doc(dataId)
+          .collection('columns')
+          .doc(columnId)
+          .update(column);
+      };
+          })
+          };
+        // }
+      // });
+  // }
+  removeTask(event: any, column: BoardList, user: ProfileUser, task: Task) {
+    event.stopPropagation();
+      const dialogRef = this.dialog.open(ConfirmWindowComponent, {
+        height: '100px',
+        width: '200px',
+        data: {},
+      });
+
+      dialogRef
+        .afterClosed()
+        .subscribe((result: DialogResultWindow | undefined) => {
+          // const dataId = this.data.id;
+          const valueCondition = result?.condition;
+          const dataId = this.data.id;
+          const columnId = column.id;
+
+          if (!valueCondition) {
+            const dataList = column.tasks;
+            console.log(dataList);
+            if (dataList) {
+              const taskIndex = dataList.findIndex((item) => item === task);
+              dataList.splice(taskIndex, 1);
+            }
+            console.log(column);
+            console.log(this.data);
+            this.store
+          .collection('users')
+          .doc(user.uid)
+          .collection('boards')
+          .doc(dataId)
+          .collection('columns')
+          .doc(columnId)
+          .update(column);
+          }
+        });
+  }
+  // }
+  // )}
 }

@@ -37,8 +37,8 @@ export class BoardService {
     // private firestore: Firestore,
   ) {}
   // : Observable<Boards[]>
-  // : Observable<Boards | null> 
-currentUserProfileBoardListStatus(){    
+  // : Observable<Boards | null>
+currentUserProfileBoardListStatus(){
     const auth = getAuth();
     const userUid = auth.currentUser?.uid;
     const user = auth.currentUser;
@@ -46,14 +46,22 @@ currentUserProfileBoardListStatus(){
     console.log(result,'result')
     return result;
   }
-  currentUserProfileBoardList(){    
+  currentUserProfileBoardList(){
     const auth = getAuth();
     // const userUid = auth.currentUser?.uid;
     const user = auth.currentUser;
     return this.store.collection('users').doc(user?.uid).collection('boards')
   }
-
-  currentUserProfileBoardListColumnStatus(){    
+  currentUserProfileBoardListData(){
+    const auth = getAuth();
+    // const userUid = auth.currentUser?.uid;
+    const user = auth.currentUser;
+    const dataStorage = this.getData();
+    const boardId = dataStorage.id;
+    return this.store.collection('users').doc(user?.uid)
+    .collection('boards').doc(boardId).collection('columns')
+  }
+  currentUserProfileBoardListColumnStatus(){
     const auth = getAuth();
     const userUid = auth.currentUser?.uid;
     const user = auth.currentUser;
@@ -61,9 +69,9 @@ currentUserProfileBoardListStatus(){
     console.log(result,'result')
     return result;
   }
-  get currentUserProfileBoardListColumnData$() : Observable<Boards[] | null>{        
-    const dataStorage = this.getData();    
-      const boardId = dataStorage.id;   
+  get currentUserProfileBoardListColumnData$() : Observable<Boards[] | null>{
+    const dataStorage = this.getData();
+      const boardId = dataStorage.id;
       return this.authService.currentUser$.pipe(
         switchMap((user) => {
           if (!user?.uid) {
@@ -77,11 +85,11 @@ currentUserProfileBoardListStatus(){
       );
     }
   // }
-    
+
     // const result = this.store.collection('users').doc(user?.uid).collection('boards').doc(boardId)
     // console.log(result,'result')
     // return result;
-  
+
 
 
   setData(data: any) {

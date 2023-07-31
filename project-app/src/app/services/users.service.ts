@@ -10,7 +10,7 @@ import {
   // getDoc,
   setDoc,
   updateDoc,
-  // deleteDoc,
+  deleteDoc,
   collectionData,
   query
 } from '@angular/fire/firestore';
@@ -51,7 +51,7 @@ export class UsersService {
       })
     );
   }
-  
+
   get allUsers$(): Observable<ProfileUser[]> {
     const ref = collection(this.firestore, 'users');
     const queryAll = query(ref);
@@ -80,7 +80,16 @@ export class UsersService {
     this.router.navigate(['']);
   }
 
-  removeUser(user: ProfileUser) {
-    this.store.collection('users').doc(user.uid).delete();
+async  removeUser(user: ProfileUser) {
+    const auth = getAuth();
+    const userC = auth.currentUser;
+    // this.store.collection('users').get()
+    // .then(user => {
+    //   user.forEach(doc => {
+    //         doc.ref.delete()
+    //     })
+// })
+await deleteDoc(doc(this.firestore, "users", user.uid));
+    // this.store.collection('users').doc(userC?.uid).delete();
   }
 }

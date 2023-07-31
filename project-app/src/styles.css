@@ -69,7 +69,6 @@ a{
   line-height: 1.5em;
 }
 .content {
-
   padding: 32px;
   min-height: 100%;
   flex: 1 1 auto;
@@ -77,18 +76,50 @@ a{
 .board_list{
   overflow: scroll;
   min-width: 1100px;
-  /* overflow-x: auto;
-  overflow-y: auto; */
 }
+.colunm_wrap{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.column_header h3{
+  font-size: 14px;
 
+}
+.task{
+  display: flex;
+  flex-direction: column;
+  /* overflow-x: hidden; */
+}
+.task_wrap{
+  overflow-x: hidden;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* flex-wrap: wrap; */
+
+  width: 200px;
+  height: 300px;
+  border: 2px solid #3f51b5;
+  border-radius: 20px;
+}
+.column_header{
+  display: flex;
+  /* position: sticky; */
+
+  align-items: flex-start;
+  justify-content: center;
+
+  gap: 15px;
+}
 .wrap{
   display: flex;
   flex-direction: column;
   gap: 20px;
   flex-wrap: wrap;
   width:calc(100vw - 70px);
-  /* overflow-x: auto;
-  overflow-y: hidden; */
 }
 .btn_add{
  width: 70px;
@@ -101,6 +132,10 @@ a{
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+.task{
+  display: flex;
+  flex-direction: column;
 }
 .board_card{
   display: flex;

@@ -38,13 +38,13 @@ import { ProfileUser } from 'src/app/models/user-profile';
 export class BoardTaskComponent {
   // data!: any;
 
-  boardListStatus = this.boardService.currentUserProfileBoardListColumnStatus() 
+  boardListStatus = this.boardService.currentUserProfileBoardListColumnStatus()
   id!: any;
   data!:any;
   // columns!: any;
   tasks!: any;
   user$ = this.usersService.currentUserProfile$;
-  boardList = this.boardService.currentUserProfileBoardList() 
+  boardList = this.boardService.currentUserProfileBoardList()
   .valueChanges({ idField: 'id' }) as Observable<Boards[]>;
   // columns = this.boardService.getData().valueChanges({ idField: 'id' }) as Observable<Boards[]>;
   // columns = this.data.columns || []
@@ -76,7 +76,7 @@ export class BoardTaskComponent {
       width: '600px',
       data: {
         column: {
-          condition: true,          
+          condition: true,
         },
       },
     });
@@ -88,7 +88,7 @@ export class BoardTaskComponent {
         const dataDescription = this.data.description;
         console.log(dataId,result)
         let value = result?.column.condition;
-        const data = result?.column;      
+        const data = result?.column;
         const checkTitle = result?.column.title;
         const checkDescription = result?.column.description;
         if (!checkTitle && !checkDescription) {
@@ -97,14 +97,14 @@ export class BoardTaskComponent {
         if (!result || !value) {
           return;
         }
-        
+
         this.store.collection('users').doc(user.uid).collection('boards')
         .doc(dataId).collection('columns').add(result.column)
-      
+
         })
         // this.boardService.currentUserProfileBoardList().add({
-          
-        // }) 
+
+        // })
         // const dataList = this.columns;
         // dataList.push(result?.column);
         // this.data.columns = dataList;

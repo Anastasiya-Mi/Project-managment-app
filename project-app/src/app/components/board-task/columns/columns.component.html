@@ -1,15 +1,29 @@
-<p>columns works!</p>
 <div class="info" *ngIf="user$ | async as user">
-<div class="info" *ngIf="data$ | async as data">
-<div class="column" *ngFor="let column of data">
-  <h3 ngFor= "column" (click)="edit($event,column,user)">{{column.title}}</h3>
+  <div class="colunm_wrap">
+    <div class="column" *ngFor="let column of columnsList | async">
+      <div class="column_header">
+        <h3 ngFor=" {column: data.column}" (click)="edit($event,column,user)">{{column.title}}</h3>
+        <!-- <button ngFor='{column: data.column}' (click)="edit($event,data)"> Edit </button> -->
+        <button class="column_heder_btn" ngFor='{ column: data.column}' (click)="remove($event,column,user)" mat-button>
+          <mat-icon>remove</mat-icon></button>
+        <button ngFor='{ column: data.column}' (click)="addTask(column,user)" mat-button>
+          <mat-icon>add</mat-icon></button>
 
-</div>
+      </div>
+      <div class="task_wrap">
+      <div class="task" *ngFor="let task of column.tasks">
+        <p ngFor='{ column: data.column}' (click)="editTask($event,column,user,task)">{{task}} </p>
+        <!-- <button ngFor='{ task: data.task}' (click)="editTask($event,task,column)"> Edit </button> -->
+        <button ngFor='{ column: data.column}' (click)="removeTask($event,column,user,task)"mat-button>
+          <mat-icon>remove</mat-icon></button>
+      </div>
+      </div>
+    </div>
     <!-- <h3 ngFor= "" (click)="edit($event,data)">{{this.columns.title}}</h3>  -->
 
-
+  </div>
 </div>
-</div>
+<!-- </div> -->
 <!-- <div class="columns" *ngFor="let data of data | async"> -->
 <!-- <div class="columns" *ngIf="data$ | async as data"> -->
     <!-- <div class="info_task">
@@ -17,7 +31,7 @@
       <p>{{column.description}}</p>
   </div> -->
   <!-- <div class="columns" *ngFor="let column of columns"> -->
-<!--     
+<!--
       <h3 ngFor= "{ column: data.columns}"(click)="edit($event,data)">{{this.columns.title}}</h3>
       <button ngFor='{  data: data.columns}' (click)="edit($event,data)"> Edit </button>
       <button ngFor='{  data: data.board}' (click)="remove($event,data)"> Remove</button>
