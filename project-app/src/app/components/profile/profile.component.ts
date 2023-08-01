@@ -45,7 +45,7 @@ export class ProfileComponent {
     private router: Router,
     private dialog: MatDialog,
     private store: AngularFirestore,
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.usersService.currentUserProfile$
       .pipe(untilDestroyed(this))
@@ -92,42 +92,21 @@ export class ProfileComponent {
 
   removeProfile(user: ProfileUser) {
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
-      height: '100px',
-      width: '200px',
+      width: '250px',
+      height: '250px',
       data: {},
     });
-
     dialogRef
       .afterClosed()
       .subscribe((result: DialogResultWindow | undefined) => {
-        // const dataId = this.data.id;
         const valueCondition = result?.condition;
-        // const dataId = this.data.id;
-        // const columnId = column.id;
-
         if (valueCondition) {
           return;
         }
-          // const dataList = column.tasks;
-          // console.log(dataList);
-          // if (dataList) {
-          //   // const taskIndex = dataList.findIndex((item) => item === task);
-          //   dataList.splice(taskIndex, 1);
-          // }
-        //   console.log(column);
-        //   console.log(this.data);
-          this.store
-        .collection('users')
-        .doc(user.uid).delete()
-        // .collection('boards')
-        // .doc(dataId)
-        // .collection('columns')
-        // .doc(columnId)
-        // .update(column);
+        this.store
+          .collection('users')
+          .doc(user.uid).delete()
         this.usersService.deleteUserAccount();
       });
-// }
-    // this.usersService.removeUser(user);
-    // this.usersService.deleteUserAccount();
   }
 }

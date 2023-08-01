@@ -49,9 +49,9 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private toast: HotToastService,
     private usersService: UsersService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get email() {
     return this.signUpForm.get('email');

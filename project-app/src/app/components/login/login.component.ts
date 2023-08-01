@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth.service';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,23 +11,19 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 })
 
 export class LoginComponent implements OnInit {
-loginForm = new FormGroup({
-  email:new FormControl('', [Validators.required, Validators.email]),
-  password:new FormControl('',[Validators.required,Validators.minLength(6)])
-})
-  // loginForm = this.fb.group({
-  //   email: ['', [Validators.required, Validators.email]],
-  //   password: ['', Validators.required],
-  // });
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
+  })
 
   constructor(
     private authService: AuthService,
     private toast: HotToastService,
     private router: Router,
     private fb: NonNullableFormBuilder
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get email() {
     return this.loginForm.get('email');
@@ -48,8 +44,8 @@ loginForm = new FormGroup({
         this.toast.observe({
           success: 'Logged in successfully',
           loading: 'Logging in...',
-          error: (message) =>
-           message
+          error: (error) =>
+            error.message
         })
       )
       .subscribe(() => {

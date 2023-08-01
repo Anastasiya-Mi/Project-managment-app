@@ -13,10 +13,9 @@ export class DialogTaskComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogTaskData
-  ) {}
+  ) { }
 
   cancel(): void {
-    // this.data.task.title = this.backupTask.title;
     this.data.task = this.backupTask;
     this.data.task.condition = false;
     this.dialogRef.close(this.data);
@@ -30,6 +29,5 @@ export interface DialogTaskData {
 
 export interface DialogTaskResult {
   task: Task;
-  // column: BoardList;
   delete?: boolean;
 }

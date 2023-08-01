@@ -1,5 +1,5 @@
-<div class="form-container mat-elevation-z5 text-center" *ngIf="user$ | async as user">
-  <h1>Profile</h1>
+<div class="form-container" *ngIf="user$ | async as user">
+  <h2>Profile</h2>
   <div class="profile-image">
     <img width="120" height="120" class="margin-top mat-elevation-z1"
       [src]="user.photoURL ?? '../assets/image-placeholder.png'" />
@@ -27,13 +27,15 @@
       </mat-form-field>
     </div>
     <div class="btn_wrap">
-      <button type="submit" class="margin-top" mat-raised-button color="primary">
+      <button type="submit" class="btn_profile" mat-raised-button color="primary">
         Save
       </button>
     </div>
   </form>
-  <button class="margin-top" mat-raised-button color="primary" (click)="removeProfile(user)">
+  <div class="btn_wrap">
+  <button class="btn_profile" mat-raised-button color="primary" (click)="removeProfile(user)">
     Delete
   </button>
+</div>
 </div>
 

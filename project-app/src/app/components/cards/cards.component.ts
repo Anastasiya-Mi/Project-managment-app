@@ -2,17 +2,14 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
-import { concatMap, from, Observable, of, switchMap,combineLatest, startWith,map } from 'rxjs';
+import { concatMap, from, Observable, of, switchMap, combineLatest, startWith, map } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Boards,BoardList,Task} from '../../models/boards';
+import { Boards, BoardList, Task } from '../../models/boards';
 import { BoardService } from '../../services/board.service';
-import { DialogComponent,DialogResult } from '../dialog/dialog.component';
-import { ConfirmWindowComponent,DialogResultWindow } from '../confirm-window/confirm-window.component';
-import { ProfileUser} from '../../models/user-profile';
-// import { user } from '@angular/fire/auth';
-// import { FormControl,NonNullableFormBuilder } from '@angular/forms';
-// import { getAuth } from "firebase/auth";
+import { DialogComponent, DialogResult } from '../dialog/dialog.component';
+import { ConfirmWindowComponent, DialogResultWindow } from '../confirm-window/confirm-window.component';
+import { ProfileUser } from '../../models/user-profile';
 
 @Component({
   selector: 'app-cards',
@@ -21,8 +18,8 @@ import { ProfileUser} from '../../models/user-profile';
 })
 export class CardsComponent {
   user$ = this.usersService.currentUserProfile$;
-  boardList = this.boardService.currentUserProfileBoardList() 
-  .valueChanges({ idField: 'id' }) as Observable<Boards[]>;
+  boardList = this.boardService.currentUserProfileBoardList()
+    .valueChanges({ idField: 'id' }) as Observable<Boards[]>;
   constructor(
     private boardService: BoardService,
     private router: Router,
@@ -30,15 +27,14 @@ export class CardsComponent {
     private store: AngularFirestore,
     private authService: AuthService,
     private usersService: UsersService
-  ) {}
+  ) { }
 
-  
-  redirectTo(board: Boards) {
-    console.log(board);
+
+  redirectTo(board: Boards) {    
     this.boardService.setData(board);
     this.router.navigate(['task']);
   }
-  edit(event: any, board: Boards,user:ProfileUser): void {    
+  edit(event: any, board: Boards, user: ProfileUser): void {
     event.stopPropagation();
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '300px',
@@ -48,7 +44,7 @@ export class CardsComponent {
       },
     });
     dialogRef.afterClosed().subscribe((result: DialogResult | undefined) => {
-      const resultId = board.id;      
+      const resultId = board.id;
       let checkTitle = result?.board.title;
       let checkDescription = result?.board.description;
       if (!checkTitle && !checkDescription) {
@@ -61,11 +57,11 @@ export class CardsComponent {
     });
   }
 
-  remove(event: any, board: Boards,user:ProfileUser) {
+  remove(event: any, board: Boards, user: ProfileUser) {
     event.stopPropagation();
     const dialogRef = this.dialog.open(ConfirmWindowComponent, {
-      height: '150px',
-      width: '200px',
+      width: '250px',
+      height: '250px',
       data: {},
     });
 
@@ -75,7 +71,7 @@ export class CardsComponent {
         const valueCondition = result?.condition;
         const resultId = board.id;
         if (!valueCondition)
-        this.store.collection('users').doc(user?.uid).collection('boards').doc(resultId).delete();
+          this.store.collection('users').doc(user?.uid).collection('boards').doc(resultId).delete();
       });
   }
 }

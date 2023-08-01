@@ -1,12 +1,9 @@
 import { Component, Inject, Input } from '@angular/core';
 import {
-  // MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
-  // MatDialogModule
 } from '@angular/material/dialog';
-// import { DialogComponent } from '../dialog/dialog.component';
-// import { DialogResult } from '../dialog/dialog.component';
+
 import { Boards, BoardList, Task } from '../../models/boards';
 @Component({
   selector: 'app-confirm-window',
@@ -19,21 +16,14 @@ export class ConfirmWindowComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmWindowComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogResultWindow
-  ) {}
+  ) { }
 
   resultOfChoice(event: any) {
     let target = event.target.value;
-    if (target === 'true') {
-      console.log(this.data);
+    if (target === 'true') {      
       this.data.condition = false;
-      // this.data.column.condition = false;
-      // console.log(this.data)
-      //  const result = target;
     } else {
-      // this.data.board.condition = true;
       this.data.condition = true;
-      // this.data.column.condition = false;
-      // console.log(this.data.condition)
     }
     this.dialogRef.close(this.data);
   }
@@ -41,7 +31,5 @@ export class ConfirmWindowComponent {
 
 export interface DialogResultWindow {
   result: Boards | BoardList;
-  // result
-  // column: BoardList;
   condition?: boolean;
 }

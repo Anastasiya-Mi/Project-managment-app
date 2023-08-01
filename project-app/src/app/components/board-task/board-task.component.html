@@ -1,36 +1,16 @@
 <div class="info" *ngIf="user$ | async as user">
-
-<div class="wrap" >
-  <button class="btn_add_board" (click) = "newColumn(user)"mat-button>
-    <mat-icon>add</mat-icon>Add Column</button>
-    <!-- <div class="info_task">
-      <h4>{{columns.title}}</h4>
-      <p>{{data.description}}</p>
-  </div> -->
-  <!-- <div class="columns" *ngFor= 'let column of (columns |async)'> -->
+  <div class="wrap">
+    <div class="btn_add_board_wrap">
+      <button class="btn_add_board" routerLink="/boards" mat-button>
+        <mat-icon>keyboard_backspace</mat-icon>go Back</button>
+    <button class="btn_add_board" (click)="newColumn(user)" mat-button>
+      <mat-icon>add</mat-icon>Add Column</button>
+   
+    </div>
     <div class="info_task">
       <h4>{{data.title}}</h4>
       <p>{{data.description}}</p>
-  </div>
-
-  <app-columns *ngIf="boardListStatus" ></app-columns>
-      <!-- <h3 ngFor= "{ column: data.column}"(click)="edit($event,column)">{{column.columns.title}}</h3> -->
-      <!-- <button ngFor='{ column: data.column}' (click)="edit($event,column)"> Edit </button> -->
-      <!-- <button ngFor='{ column: data.column}' (click)="remove($event,column)"> Remove</button>
-      <button ngFor='{ column: data.column.tasks}' (click)="addTask(column)"> Add Task</button> -->
-      <!-- <app-column-task-list *ngFor="let task of column.tasks" [task]="column.tasks"> -->
-          <!-- <div class="task" *ngFor="let task of column.tasks">
-              <p ngFor='{ task: data.task}' (click)="editTask($event,task,column)">{{task}} </p>
-              <button ngFor='{ task: data.task}' (click)="editTask($event,task,column)"> Edit </button>
-              <button ngFor='{ task: data.task}' (click)="removeTask($event,task,column)">Remove</button>
-
-          </div> -->
-      <!-- </app-column-task-list> -->
-
-      <button class="btn_add_board" routerLink="/boards" mat-button>
-        <mat-icon>keyboard_backspace</mat-icon>go Back</button>
+    </div>
+    <app-columns *ngIf="boardListStatus"></app-columns>
   </div>
 </div>
-  <!-- <button class="column" (click) = "newColumn()">Add Column</button> -->
-  
-  <!-- </div> -->

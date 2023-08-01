@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ProfileUser } from '../models/user-profile';
-// import { Boards } from '../models/boards';
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
 import {
   collection,
   doc,
   docData,
-  // getDoc,
   setDoc,
   updateDoc,
   deleteDoc,
@@ -17,15 +15,6 @@ import {
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getAuth, deleteUser } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
-// import {
-//   Auth,
-//   signInWithEmailAndPassword,
-//   authState,
-//   createUserWithEmailAndPassword,
-//   updateProfile,
-//   UserInfo,
-//   UserCredential,
-// } from '@angular/fire/auth';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 @Injectable({
@@ -38,7 +27,7 @@ export class UsersService {
     private store: AngularFirestore,
     private toast: HotToastService,
     private router: Router
-  ) {}
+  ) { }
 
   get currentUserProfile$(): Observable<ProfileUser | null> {
     return this.authService.currentUser$.pipe(
@@ -80,16 +69,9 @@ export class UsersService {
     this.router.navigate(['']);
   }
 
-async  removeUser(user: ProfileUser) {
+  async removeUser(user: ProfileUser) {
     const auth = getAuth();
-    const userC = auth.currentUser;
-    // this.store.collection('users').get()
-    // .then(user => {
-    //   user.forEach(doc => {
-    //         doc.ref.delete()
-    //     })
-// })
-await deleteDoc(doc(this.firestore, "users", user.uid));
-    // this.store.collection('users').doc(userC?.uid).delete();
+    const userC = auth.currentUser;    
+    await deleteDoc(doc(this.firestore, "users", user.uid));
   }
 }

@@ -42,6 +42,7 @@ import { CardsComponent } from './components/cards/cards.component';
 import { ColumnsComponent } from './components/board-task/columns/columns.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+
 @NgModule({
   declarations: [
     AppComponent,

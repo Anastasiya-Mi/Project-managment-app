@@ -13,11 +13,10 @@ export class DialogColumnComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogColumnComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogColumnData
-  ) {}
+  ) { }
 
   cancel(): void {
     this.data.column.title = this.backupTask.title;
-    // this.data.column.description = this.backupTask.description;
     this.data.column.condition = false;
     this.dialogRef.close(this.data);
   }
@@ -30,6 +29,5 @@ export interface DialogColumnData {
 
 export interface DialogColumnResult {
   column: BoardList;
-  // column: BoardList;
   delete?: boolean;
 }

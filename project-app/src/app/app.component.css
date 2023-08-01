@@ -1,0 +1,47 @@
+mat-toolbar {
+    justify-content: space-between;
+    background-color: #2c3e50;
+}
+
+h1 {
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.btn_wrap {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn_wrap>button {
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #2c3e50;
+    font-size: 16px;
+    color: #FFFFFF;    
+    height: 50px;
+    width: 100%;
+}
+
+.footer img {
+    display: flex;
+    max-width: 32px;
+}
+
+.rs_school {
+    display: flex;
+    min-width: 64px;
+}
+
+.profile-image-toolbar {
+    border-radius: 100%;
+    margin-right: 8px;
+    width: 30px;
+    height: 30px;
+  }

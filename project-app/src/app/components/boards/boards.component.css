@@ -1,4 +1,4 @@
-/* mat-toolbar {
+mat-toolbar {
   margin-bottom: 20px;
 }
 
@@ -52,4 +52,4 @@ app-new-task {
 .item {
   margin-bottom: 10px;
   cursor: pointer;
-} */
+}

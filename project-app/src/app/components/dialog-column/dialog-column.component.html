@@ -1,14 +1,9 @@
 <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput cdkFocusInitial [(ngModel)]="data.column.title" />
-  </mat-form-field>
-  
-  <!-- <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="data.board.description"></textarea>
-  </mat-form-field> -->
-  
-  <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="{ column: data.column }">OK</button>
-    <button mat-button (click)="cancel()">Cancel</button>
-  </div> 
+  <mat-label>Title</mat-label>
+  <input matInput cdkFocusInitial [(ngModel)]="data.column.title" />
+</mat-form-field>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="{ column: data.column }">OK</button>
+  <button mat-button (click)="cancel()">Cancel</button>
+</div>

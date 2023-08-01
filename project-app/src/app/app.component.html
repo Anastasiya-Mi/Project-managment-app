@@ -1,47 +1,55 @@
-<mat-toolbar color="primary">
-  <a href="">Planning Man</a>
-  <div class="btn_wrap">
-    <ng-container *ngIf="user$ | async as user; else loginButton">
-      <button  mat-button routerLink="boards">
-        <mat-icon>calendar_today_icon</mat-icon>
-        Boards
-      </button>
-      <button  mat-button routerLink="profile">
-        <img class="profile-image-toolbar" [src]="user.photoURL ?? '../assets/image-placeholder.png'" />
-        {{user.displayName}}
-      </button>
-      <button  mat-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        Logout
-      </button>
-    </ng-container>
-    <ng-template #loginButton>
-      <button  mat-button routerLink="login">
-        <mat-icon>login</mat-icon>
-        Login
-      </button>
-      <button  mat-button routerLink="registration">
-        <mat-icon>login</mat-icon>
-        Sign up
-      </button>
-    </ng-template>
-  </div>
-</mat-toolbar>
+<div class="content_components_wrap">
+  <mat-toolbar>
+    <a href="">
+      <h1>Planning Man</h1>
+    </a>
+    <div class="btn_wrap">
+      <ng-container *ngIf="user$ | async as user; else loginButton">
+        <button mat-button routerLink="boards">
+          <mat-icon>calendar_today_icon</mat-icon>
+          Boards
+        </button>
+        <button class="profile_btn" mat-button routerLink="profile">
+          <img class="profile-image-toolbar" [src]="user.photoURL ?? '../assets/image-placeholder.png'" />
+          {{user.displayName}}
+        </button>
+        <button mat-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </ng-container>
+      <ng-template #loginButton>
+        <button mat-button routerLink="login">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+        <button mat-button routerLink="registration">
+          <mat-icon>login</mat-icon>
+          Sign up
+        </button>
+      </ng-template>
+    </div>
+  </mat-toolbar>
 
-<div class="content">
-  <router-outlet></router-outlet>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer>
+    <div class="footer center">
+      <a class="text-white" href="https://github.com/Anastasiya-Mi" target="_blank"><img src="../assets/github.png"
+          alt="github icon"></a>
+    </div>
+    <div class="footer center">
+      <h5>2023</h5>
+    </div>
+    <div class="footer center">
+      <a class="text-white" href="https://rs.school/angular/" target="_blank"><img class="rs_school"
+          src="../assets/rs_school_js.svg" alt="rs icon"></a>
+    </div>
+  </footer>
+
 </div>
 
-<footer>
-  <div class="footer center">
-    <a class="text-white" href="https://github.com/Anastasiya-Mi" target="_blank"><img src="../assets/github.png"
-      alt="github icon"></a>
-  </div>
-  <div class="footer center">
-    <h5>2023</h5>
-  </div>
-  <div class="footer center">
-    <a class="text-white" href="https://rs.school/angular/" target="_blank"><img class="rs_school"
-       src="../assets/rs_school_js.svg" alt="rs icon"></a>
-  </div>
-</footer>
+
+

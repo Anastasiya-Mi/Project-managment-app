@@ -1,5 +1,6 @@
-<div class="form-container mat-elevation-z5">
-  <h1>Login</h1>
+<div class="content_components_wrap">
+<div class="form-container">
+  <h2>Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <mat-form-field>
       <input matInput placeholder="Email address" formControlName="email">
@@ -24,4 +25,5 @@
     </div>
     <span class="center margin-top">New to our platform? <a class="registration-link" routerLink="/registration">Sign up!</a></span>
   </form>
+</div>
 </div>
