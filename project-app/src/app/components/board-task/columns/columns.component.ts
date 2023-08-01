@@ -37,7 +37,7 @@ export class ColumnsComponent {
     .valueChanges({ idField: 'id' }) as Observable<BoardList[]>;
   data: any;
   columns: any;
-  tasks = [...];
+  // tasks = [...];
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -238,19 +238,6 @@ export class ColumnsComponent {
           }
         });
   }
-  // }
-  // )}
- task: Task[] = [];
-//  tasks = [...];
-  drop(event:CdkDragDrop<BoardList[]>) : void{
-    // if (event.previousContainer === event.container) {
-    //   return;
-    // }
-    // if (!event.container.data || !event.previousContainer.data) {
-    //   return;
-    // }
-    moveItemInArray(this.tasks,event.previousIndex,event.currentIndex
-    );
 
-  }
+
 }
