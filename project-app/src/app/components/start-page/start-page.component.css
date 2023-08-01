@@ -1,0 +1,18 @@
+mat-tab-group{    
+    color: #212529; 
+    font-size: 16px;   
+}
+mat-tab label{
+    color: #18bc9c; 
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: auto;
+  align-items: center;
+  letter-spacing: 0.06em;
+  line-height: 1.5em;
+  padding-top: 32px;
+}
+

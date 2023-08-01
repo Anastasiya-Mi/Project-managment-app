@@ -1,0 +1,32 @@
+<div class="info" *ngIf="user$ | async as user">
+  <div class="colunm_wrap" >
+    <div class="column_drag" cdkDropListGroup
+    cdkDropList
+        cdkDropListOrientation="horizontal"
+        [cdkDropListData]="columnsList | async"
+        (cdkDropListDropped)="dropColumn($event,user)">
+    <div class="column" *ngFor="let column of columnsList | async">
+      <div class="column_header">
+        <h3 ngFor=" {column: data.column}" (click)="edit($event,column,user)">{{column.title}}</h3>
+        <button class="column_header_btn" ngFor='{ column: data.column}' (click)="remove($event,column,user)"
+          mat-button>
+          <mat-icon>remove</mat-icon></button>
+        <button class="column_header_btn" ngFor='{ column: data.column}' (click)="addTask(column,user)" mat-button>
+          <mat-icon>add</mat-icon></button>
+      </div>
+      <div class="task_wrap" cdkDropList [cdkDropListData]="column.tasks"
+        (cdkDropListDropped)="dropTask($event,column,user)">
+        <div class="task" *ngFor="let task of column.tasks" cdkDrag [cdkDragData]="task">
+          <div class="task_text" ngFor='{ column: data.column}' (click)="editTask($event,column,user,task)">{{task}}
+          </div>
+          <button ngFor='{ column: data.column}' (click)="removeTask($event,column,user,task)" mat-button>
+            <mat-icon>remove</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+

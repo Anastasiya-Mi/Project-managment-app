@@ -1,0 +1,28 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;    
+    padding: 48px;
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.content_components_wrap{
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    font-size: 24px;
+}
+h4{
+    font-size: 22px;
+}
+.center > button{
+    background-color: #2c3e50;
+}

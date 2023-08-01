@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mangment-system": {
+      "hosting": {
+        "project-app": [
+          "mangment-system"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mangment-system"
+  }
+}

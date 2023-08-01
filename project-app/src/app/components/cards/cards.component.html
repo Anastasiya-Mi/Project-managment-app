@@ -1,0 +1,14 @@
+<div class="info" *ngIf="user$ | async as user">
+  <div class="board_list">
+    <div class="board_card" *ngFor="let board of boardList | async" (click)="redirectTo(board)">
+      <h3>{{board.title}}</h3>
+      <p>{{board.description}}</p>
+      <div class="btn_board_wrap">
+        <button class="btn_add" ngFor='{ board: data.board}' (click)="edit($event,board,user) " mat-button> 
+          <mat-icon>edit</mat-icon></button>
+        <button class="btn_add" ngFor='{ board: data.board}' (click)="remove($event,board,user)"mat-button>
+          <mat-icon>remove</mat-icon> </button>
+      </div>
+    </div>
+  </div>
+</div>

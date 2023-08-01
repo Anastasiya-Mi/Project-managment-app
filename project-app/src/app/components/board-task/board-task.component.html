@@ -1,0 +1,16 @@
+<div class="info" *ngIf="user$ | async as user">
+  <div class="wrap">
+    <div class="btn_add_board_wrap">
+      <button class="btn_add_board" routerLink="/boards" mat-button>
+        <mat-icon>keyboard_backspace</mat-icon>go Back</button>
+    <button class="btn_add_board" (click)="newColumn(user)" mat-button>
+      <mat-icon>add</mat-icon>Add Column</button>
+
+    </div>
+    <div class="info_task">
+      <h4>{{data.title}}</h4>
+      <p>{{data.description}}</p>
+    </div>
+    <app-columns *ngIf="boardListStatus"></app-columns>
+  </div>
+</div>
