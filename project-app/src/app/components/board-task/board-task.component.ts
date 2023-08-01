@@ -32,7 +32,7 @@ export class BoardTaskComponent {
   user$ = this.usersService.currentUserProfile$;
   boardList = this.boardService.currentUserProfileBoardList()
     .valueChanges({ idField: 'id' }) as Observable<Boards[]>;
-    
+
   constructor(
     private activateRoute: ActivatedRoute,
     private boardService: BoardService,
@@ -45,7 +45,7 @@ export class BoardTaskComponent {
 
   ngOnInit(): void {
   }
-  newColumn(user: ProfileUser) {   
+  newColumn(user: ProfileUser) {
     const dialogRef = this.dialog.open(DialogColumnComponent, {
       height: '400px',
       width: '600px',
@@ -60,7 +60,7 @@ export class BoardTaskComponent {
       .subscribe((result: DialogColumnResult | undefined) => {
         const dataId = this.data.id;
         const dataTitle = this.data.title;
-        const dataDescription = this.data.description;       
+        const dataDescription = this.data.description;
         let value = result?.column.condition;
         const data = result?.column;
         const checkTitle = result?.column.title;
@@ -71,7 +71,7 @@ export class BoardTaskComponent {
         if (!result || !value) {
           return;
         }
-
+        result.column.tasks = [];
         this.store.collection('users').doc(user.uid).collection('boards')
           .doc(dataId).collection('columns').add(result.column)
 

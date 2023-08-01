@@ -36,6 +36,7 @@ export class BoardService {
     private store: AngularFirestore,
     private authService: AuthService,
   ) { }
+  
   currentUserProfileBoardListStatus() {
     const auth = getAuth();
     const userUid = auth.currentUser?.uid;
